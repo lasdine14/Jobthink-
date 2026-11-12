@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d27"><title>Jobthink V3</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#090d27;--navy2:#151b43;--purple:#642cff;--violet:#8c65ff;--bg:#f5f6fb;--ink:#17192d;--muted:#777b91;--line:#e8e9f1;--white:#fff;--green:#159b70}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:490px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:88px;box-shadow:0 0 40px #10143a12}.top{background:var(--navy);color:#fff;padding:16px 17px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}.brand{font-weight:900;font-size:23px;letter-spacing:-1px}.brand em{color:#a78bff;font-style:normal}.logo{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--purple);border-radius:11px;margin-right:8px}.top-actions{display:flex;gap:10px;align-items:center}.round{border:1px solid #ffffff35;background:#ffffff12;color:#fff;width:37px;height:37px;border-radius:50%;font-size:17px}.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#30235f;color:white;font-weight:800;border:2px solid #ffffff50}.page{display:none;padding:16px}.page.active{display:block}.hero{padding:21px 18px;border-radius:21px;background:linear-gradient(130deg,#151b49,#4b20c7 70%,#9068ff);color:#fff;position:relative;overflow:hidden;box-shadow:0 12px 25px #5625d52c}.hero:after{content:"✦";position:absolute;right:13px;top:-14px;font-size:120px;color:#ffffff18}.hero h1{font-size:25px;line-height:1.12;margin:0 0 9px;max-width:280px}.hero p{font-size:13px;color:#e5ddff;line-height:1.5;max-width:275px;margin:0 0 16px}.btn{border:0;border-radius:13px;padding:12px 16px;background:var(--purple);color:#fff;font-weight:800}.btn:disabled{opacity:.6}.btn.white{background:white;color:#4e25c7}.btn.soft{background:#f0ebff;color:#5428d2;box-shadow:none}.btn.line{background:white;border:1px solid var(--purple);color:var(--purple)}.btn.danger{background:white;border:1px solid #d33;color:#d33}.btn.block{width:100%;margin-top:8px}.search{height:47px;background:white;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:9px;padding:0 13px;margin:15px 0}.search input{border:0;outline:0;width:100%;background:none;font-size:13px}.head{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 11px}.head h2{font-size:17px;margin:0}.small-link{border:0;background:none;color:var(--purple);font-size:12px;font-weight:800}.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.cat{border:1px solid var(--line);background:white;border-radius:14px;padding:10px 3px;font-size:10px;font-weight:700;color:var(--ink)}.cat i{font-style:normal;display:grid;place-items:center;margin:0 auto 6px;width:37px;height:37px;border-radius:12px;background:#eee9ff;font-size:20px}.cat.selected{border:1.5px solid var(--purple);background:#f3efff;color:#5428d2}.chips{display:flex;gap:7px;overflow:auto;padding:2px 0 7px}.chip{border:1px solid var(--line);border-radius:30px;padding:8px 12px;background:#fff;white-space:nowrap;font-size:11px}.chip.on{background:#eee8ff;color:#5224cf;border-color:#cbbaff}.cards{display:grid;gap:10px}.job{background:white;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;align-items:center;gap:11px}.job-icon{width:50px;height:50px;border-radius:14px;background:linear-gradient(145deg,#eee9ff,#dcd1ff);display:grid;place-items:center;font-size:23px;flex-shrink:0}.job-main{flex:1;min-width:0}.job h3{font-size:13px;margin:0 0 5px}.job p{font-size:10px;color:var(--muted);margin:3px 0}.price{font-size:12px;color:var(--purple);font-weight:900;white-space:nowrap}.job-tools{display:flex;gap:5px}.icon-btn{border:0;background:#f2efff;color:var(--purple);border-radius:9px;width:29px;height:29px}.title{font-size:21px;margin:5px 0 5px}.sub{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 15px}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;margin-bottom:11px}.field{margin:12px 0}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #e0e1eb;border-radius:11px;outline:none;background:white;font-size:13px}.field textarea{min-height:88px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--purple)}.muted{color:var(--muted);font-size:12px;line-height:1.5}.tag{display:inline-block;padding:6px 9px;border-radius:30px;background:#f0ebff;color:#5428d2;font-size:10px;font-weight:800}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.detail-price{font-size:25px;color:var(--purple);font-weight:900;margin:8px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}.stats strong{display:block;font-size:19px}.stats span{font-size:10px;color:var(--muted)}.profile-cover{background:linear-gradient(130deg,#101638,#4b20c7);border-radius:18px;padding:23px 15px;text-align:center;color:white}.profile-cover .avatar{width:68px;height:68px;font-size:24px;margin:0 auto 8px}.listrow{padding:13px 2px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;font-size:13px}.listrow:last-child{border:0}.listrow b{margin-left:auto;color:var(--muted)}.msg{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.msg .avatar{flex-shrink:0}.msg strong{font-size:12px}.msg p{font-size:11px;color:var(--muted);margin:4px 0}.empty{text-align:center;padding:25px 12px;color:var(--muted);background:#fff;border:1px dashed #d9d9e6;border-radius:15px;font-size:12px;line-height:1.6}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(490px,100%);height:76px;padding:7px 4px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(6,1fr);background:white;border-top:1px solid var(--line);z-index:10}.nav{border:0;background:none;color:#777b91;font-size:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.nav b{font-size:20px;line-height:22px}.nav.active{color:var(--purple);font-weight:900}.nav.publish b{background:var(--purple);color:white;border-radius:12px;width:37px;height:34px;display:grid;place-items:center;margin-top:-8px;font-size:24px}.toast{position:fixed;z-index:40;bottom:90px;left:50%;transform:translate(-50%,15px);opacity:0;transition:.2s;background:#171a32;color:white;padding:12px 16px;border-radius:12px;font-size:12px;max-width:90%;text-align:center;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#090d27a8;z-index:20;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{width:min(490px,100%);background:white;border-radius:22px 22px 0 0;padding:19px;max-height:92vh;overflow:auto}.status{font-size:10px;color:var(--green);font-weight:800}.notice{padding:12px;border-radius:13px;background:#f4f0ff;font-size:12px;margin:9px 0}.hide{display:none!important}.authmsg{font-size:12px;margin:10px 0;color:#c0262d;line-height:1.5}.authmsg.ok{color:var(--green)}
+@media(min-width:700px){body{padding:20px 0}.app{border-radius:24px;overflow:hidden;min-height:850px}.bottom{position:absolute;bottom:0;border-radius:0 0 24px 24px}}
+</style></head>
+<body><div class="app">
+<header class="top"><div class="brand"><span class="logo">▣</span>Job<em>think</em></div><div class="top-actions"><button class="round" onclick="go('notifications')" aria-label="Notifications">♧</button><div class="avatar" id="topAvatar">?</div></div></header>
+<main>
+<section class="page active" id="home">
+ <div class="hero"><h1>Trouvez le bon job près de chez vous !</h1><p>Services, petits boulots, missions… Faites avancer vos projets avec Jobthink.</p><button class="btn white" onclick="go('search')">Explorer maintenant →</button></div>
+ <div class="search"><span>⌕</span><input id="homeQuery" placeholder="Rechercher un job, un service..." oninput="searchFrom(this.value)"></div>
+ <div class="head"><h2>Catégories</h2><button class="small-link" onclick="go('search')">Tout voir →</button></div>
+ <div class="cats">
+ <button class="cat" onclick="pickCat('Informatique')"><i>🔧</i>Informatique</button><button class="cat" onclick="pickCat('Graphisme')"><i>🎨</i>Graphisme</button><button class="cat" onclick="pickCat('Réparation')"><i>💻</i>Réparation</button><button class="cat" onclick="pickCat('Services')"><i>🧹</i>Services</button>
+ </div>
+ <div class="head"><h2>Jobs récents</h2><span class="tag" id="count">0 annonce</span></div><div class="cards" id="homeJobs"></div>
+</section>
+<section class="page" id="search"><h1 class="title">Explorer les opportunités</h1><p class="sub">Filtre les annonces pour trouver la mission qui te correspond.</p>
+ <div class="search"><span>⌕</span><input id="query" placeholder="Mot-clé, métier, quartier..." oninput="render()"></div>
+ <div class="field"><label>Catégorie</label><select id="filterCat" onchange="render()"><option value="Tout">Toutes les catégories</option><option>Informatique</option><option>Graphisme</option><option>Réparation</option><option>Services</option><option>Bâtiment</option><option>Transport</option><option>Cours particuliers</option><option>Photographie</option></select></div>
+ <div class="field"><label>Budget maximum (FCFA)</label><input id="maxBudget" type="number" placeholder="Aucune limite" oninput="render()"></div>
+ <div class="cards" id="searchJobs"></div>
+</section>
+<section class="page" id="publish"><h1 class="title">Publier une annonce</h1><p class="sub">Décris clairement le travail à réaliser pour recevoir des propositions.</p><div class="panel"><form id="publishForm">
+ <div class="field"><label>Type d'annonce</label><select id="kind"><option value="project">Je cherche quelqu'un</option><option value="service">Je propose mes services</option></select></div>
+ <div class="field"><label>Catégorie</label><select id="category" required><option value="">Choisir une catégorie</option><option>Informatique</option><option>Graphisme</option><option>Réparation</option><option>Services</option><option>Bâtiment</option><option>Transport</option><option>Cours particuliers</option><option>Photographie</option></select></div>
+ <div class="field"><label>Titre</label><input id="jobTitle" maxlength="70" required placeholder="Ex : Création d'un logo"></div>
+ <div class="field"><label>Description détaillée</label><textarea id="jobDesc" maxlength="700" required placeholder="Précise le travail, les délais et les attentes..."></textarea></div>
+ <div class="field"><label>Budget proposé (FCFA)</label><input id="jobBudget" type="number" min="0" required placeholder="Ex : 15000"></div>
+ <div class="field"><label>Ville et quartier</label><input id="jobLocation" required placeholder="Ex : Brazzaville, Moungali"></div>
+ <button class="btn block" id="publishBtn">＋ Publier l'annonce</button></form></div><p class="muted">Ton annonce sera enregistrée sur Jobthink et visible par les autres membres connectés.</p>
+</section>
+<section class="page" id="missions"><h1 class="title">Mes missions</h1><p class="sub">Retrouve ici les missions que tu suis (enregistrées sur cet appareil).</p><div id="missionList" class="cards"></div></section>
+<section class="page" id="favorites"><h1 class="title">Mes favoris ❤️</h1><p class="sub">Les annonces que tu souhaites retrouver facilement (enregistrées sur cet appareil).</p><div id="favoriteList" class="cards"></div></section>
+<section class="page" id="messages"><h1 class="title">Messagerie</h1><p class="sub">Échange avec les clients et les prestataires.</p><div class="panel"><div class="msg"><div class="avatar">JT</div><div><strong>Bienvenue sur Jobthink</strong><p>Les conversations apparaîtront ici lorsque la messagerie sera connectée.</p></div></div><div class="empty">💬<br><b>Aucune conversation</b><br>La messagerie sera la prochaine étape.</div></div></section>
+<section class="page" id="notifications"><h1 class="title">Notifications</h1><p class="sub">Les nouvelles activités de ton compte.</p><div class="panel"><div class="listrow">🔔 <span>Bienvenue sur Jobthink V3</span><b>Maintenant</b></div><div class="listrow">📌 <span>Complète ton profil pour inspirer confiance</span></div><div class="listrow">💬 <span>Les messages seront disponibles prochainement</span></div></div></section>
+<section class="page" id="profile"><div class="profile-cover"><div class="avatar" id="profileAvatar">?</div><h2 id="profileName" style="margin:5px 0">Mon profil</h2><small id="profileEmail">Bienvenue dans ton espace Jobthink</small></div><div class="panel stats" style="margin-top:12px"><div><strong id="myJobs">0</strong><span>Annonces</span></div><div><strong id="myFavs">0</strong><span>Favoris</span></div><div><strong>—</strong><span>Note</span></div></div>
+ <div class="panel"><b>Mon compte</b><div class="field"><label>Nom ou pseudo</label><input id="editName" placeholder="Ton nom"></div><div class="field"><label>Présentation (sur cet appareil)</label><textarea id="bio" placeholder="Présente tes compétences et ton expérience..."></textarea></div><button class="btn block" id="saveProfileBtn" onclick="saveProfile()">Enregistrer mon profil</button></div>
+ <div class="panel"><button class="btn line block" onclick="go('favorites')">♡ Voir mes favoris</button></div>
+ <div class="panel"><b>Jobthink Premium 👑</b><p class="muted">Mets tes annonces en avant et gagne en visibilité.</p><button class="btn soft block" onclick="toast('Premium sera disponible après la mise en place des paiements.')">Découvrir Premium</button></div>
+ <div class="panel"><div class="listrow">🛡️ <span>Confidentialité et sécurité</span><b>›</b></div><div class="listrow">❓ <span>Centre d'aide</span><b>›</b></div><div class="listrow">⚙️ <span>Paramètres</span><b>›</b></div><button class="btn line block" onclick="logout()">Se déconnecter</button></div>
+</section>
+<section class="page" id="detail"><button class="small-link" onclick="go('home')">← Retour</button><div class="panel" style="margin-top:12px"><div class="row"><span class="tag" id="dCategory"></span><button class="icon-btn" id="dFav" onclick="toggleDetailFav()">♡</button></div><h1 class="title" id="dTitle" style="margin-top:13px"></h1><div class="detail-price" id="dPrice"></div><p class="muted" id="dLocation"></p><hr style="border:0;border-top:1px solid var(--line);margin:17px 0"><h3>Description</h3><p class="muted" id="dDesc"></p><h3>Publié par</h3><p class="muted" id="dOwner"></p><div class="notice">🔒 Astuce sécurité : échange les informations utiles dans Jobthink et vérifie les détails avant d'accepter une mission.</div><button class="btn block" onclick="contactDemo()">Contacter / Proposer mes services</button><button class="btn line block" onclick="createMission()">Ajouter à mes missions</button><button class="btn danger block hide" id="dDelete" onclick="deleteCurrent()">Supprimer mon annonce</button></div></section>
+</main>
+<nav class="bottom">
+ <button class="nav active" data-id="home" onclick="go('home')"><b>⌂</b>Accueil</button><button class="nav" data-id="search" onclick="go('search')"><b>⌕</b>Explorer</button><button class="nav publish" data-id="publish" onclick="go('publish')"><b>＋</b>Publier</button><button class="nav" data-id="missions" onclick="go('missions')"><b>▣</b>Missions</button><button class="nav" data-id="messages" onclick="go('messages')"><b>▤</b>Messages</button><button class="nav" data-id="profile" onclick="go('profile')"><b>♙</b>Profil</button>
+</nav></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="authModal"><div class="sheet"><h2 style="margin:0 0 4px">Bienvenue sur Jobthink</h2><p class="muted">Connecte-toi ou crée ton compte pour voir et publier des annonces.</p>
+<div class="field"><label>Adresse e-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="toi@exemple.com"></div>
+<div class="field"><label>Mot de passe (6 caractères minimum)</label><input id="authPass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+<div class="field"><label>Nom ou pseudo (pour créer un compte)</label><input id="authName" placeholder="Ex : Lasdine14"></div>
+<div class="authmsg" id="authMsg"></div>
+<button class="btn block" id="loginBtn" onclick="doAuth('login')">Se connecter</button>
+<button class="btn line block" id="signupBtn" onclick="doAuth('signup')">Créer mon compte</button></div></div>
+<script>
+// ====== CONFIGURATION SUPABASE ======
+const SUPABASE_URL='https://fpaxrszsqfevfgruekoe.supabase.co';
+const SUPABASE_KEY='sb_publishable_N68JcLdW529XXhrOsrQMqA_305YskxE'; // clé publique (jamais la clé secrète)
+// =====================================
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const emoji={Informatique:'🔧',Graphisme:'🎨',Réparation:'💻',Services:'🧹',Bâtiment:'🏗️',Transport:'🚚','Cours particuliers':'📚',Photographie:'📸'};
+let items=[],user=null,current=null,query='';
+let profile={name:'',bio:''};
+let favorites=JSON.parse(localStorage.getItem('jt3_favs')||'[]');
+let missions=JSON.parse(localStorage.getItem('jt3_missions')||'[]');
+function persistLocal(){localStorage.setItem('jt3_favs',JSON.stringify(favorites));localStorage.setItem('jt3_missions',JSON.stringify(missions))}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function num(v){return Number(String(v??'').replace(/[^\d]/g,''))||0}
+function money(n){return n?Number(n).toLocaleString('fr-FR')+' FCFA':'À discuter'}
+function bioKey(){return 'jt3_bio_'+(user?user.id:'')}
+
+// ---------- Annonces ----------
+function card(j){return `<article class="job"><div class="job-icon" onclick="openJob('${j.key}')">${emoji[j.category]||'💼'}</div><div class="job-main" onclick="openJob('${j.key}')"><h3>${safe(j.title)}</h3><p>📍 ${safe(j.location||'Lieu non précisé')}</p><p>${safe(j.category)} · ${safe(j.kind)}</p><div class="price">${money(j.budget)}</div></div><div class="job-tools"><button class="icon-btn" onclick="event.stopPropagation();toggleFav('${j.key}')">${favorites.includes(j.key)?'♥':'♡'}</button></div></article>`}
+function getFiltered(){let q=(query||$('query')?.value||'').toLowerCase(),cat=$('filterCat')?.value||'Tout',max=Number($('maxBudget')?.value||0);return items.filter(j=>(cat==='Tout'||j.category===cat)&&(!max||j.budget<=max)&&(!q||(j.title+' '+j.description+' '+j.location+' '+j.category).toLowerCase().includes(q)))}
+function render(){
+ let list=getFiltered();
+ $('homeJobs').innerHTML=list.slice(0,5).map(card).join('')||'<div class="empty">Aucune annonce pour le moment.<br>Sois le premier à publier !</div>';
+ $('searchJobs').innerHTML=list.map(card).join('')||'<div class="empty">Aucune annonce ne correspond à ta recherche.</div>';
+ $('count').textContent=items.length+(items.length>1?' annonces':' annonce');
+ $('myJobs').textContent=items.filter(j=>user&&j.ownerId===user.id).length;
+ $('myFavs').textContent=favorites.length;
+ $('favoriteList').innerHTML=items.filter(j=>favorites.includes(j.key)).map(card).join('')||'<div class="empty">Tu n’as pas encore de favoris.</div>';
+ $('missionList').innerHTML=missions.length?missions.map(m=>`<div class="panel"><div class="row"><b>${safe(m.title)}</b><span class="tag">${safe(m.status)}</span></div><p class="muted">${money(m.budget)} · ${safe(m.location)}</p><button class="btn soft" onclick="advanceMission(${m.id})">Mettre à jour le statut</button></div>`).join(''):'<div class="empty">Aucune mission enregistrée.<br>Ouvre une annonce pour l’ajouter ici.</div>'}
+
+async function loadItems(){
+ const [p,s]=await Promise.all([
+  sb.from('projects').select('id,created_at,title,description,category,budget,city,client_id,profiles(full_name)').order('created_at',{ascending:false}),
+  sb.from('services').select('id,created_at,title,description,category,price,city,provider_id,profiles(full_name)').order('created_at',{ascending:false})
+ ]);
+ if(p.error)toast('Erreur annonces : '+p.error.message);
+ if(s.error)toast('Erreur services : '+s.error.message);
+ const a=(p.data||[]).map(r=>({key:'projects:'+r.id,table:'projects',id:r.id,created:r.created_at,kind:'Je cherche quelqu’un',category:r.category||'Services',title:r.title,description:r.description||'',budget:num(r.budget),location:r.city||'',owner:r.profiles?.full_name||'Membre Jobthink',ownerId:r.client_id}));
+ const b=(s.data||[]).map(r=>({key:'services:'+r.id,table:'services',id:r.id,created:r.created_at,kind:'Je propose mes services',category:r.category||'Services',title:r.title,description:r.description||'',budget:num(r.price),location:r.city||'',owner:r.profiles?.full_name||'Membre Jobthink',ownerId:r.provider_id}));
+ items=[...a,...b].sort((x,y)=>new Date(y.created)-new Date(x.created));
+ render()}
+
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.id===id));render();window.scrollTo({top:0,behavior:'smooth'})}
+function pickCat(cat){$('filterCat').value=cat;go('search');render()}
+function searchFrom(v){query=v;$('query').value=v;go('search');$('query').value=v;render()}
+function openJob(key){current=items.find(j=>j.key===key);if(!current)return;$('dCategory').textContent=current.category;$('dTitle').textContent=current.title;$('dPrice').textContent=money(current.budget);$('dLocation').textContent='📍 '+(current.location||'Lieu non précisé');$('dDesc').textContent=current.description;$('dOwner').textContent=current.owner;$('dFav').textContent=favorites.includes(key)?'♥':'♡';$('dDelete').classList.toggle('hide',!(user&&current.ownerId===user.id));go('detail')}
+function toggleFav(key){favorites=favorites.includes(key)?favorites.filter(x=>x!==key):[...favorites,key];persistLocal();render();toast(favorites.includes(key)?'Ajouté aux favoris ❤️':'Retiré des favoris')}
+function toggleDetailFav(){if(current){toggleFav(current.key);$('dFav').textContent=favorites.includes(current.key)?'♥':'♡'}}
+function contactDemo(){toast('La messagerie sera la prochaine étape.')}
+function createMission(){if(!current)return;if(!missions.some(m=>m.jobKey===current.key)){missions.push({id:Date.now(),jobKey:current.key,title:current.title,budget:current.budget,location:current.location,status:'À discuter'});persistLocal();render()}toast('Annonce ajoutée à tes missions.')}
+function advanceMission(id){let m=missions.find(x=>x.id===id);if(!m)return;let st=['À discuter','En attente','En cours','Terminée'];m.status=st[(st.indexOf(m.status)+1)%st.length];persistLocal();render();toast('Statut mis à jour.')}
+
+async function deleteCurrent(){
+ if(!current||!user||current.ownerId!==user.id)return;
+ if(!confirm('Supprimer définitivement cette annonce ?'))return;
+ const {error}=await sb.from(current.table).delete().eq('id',current.id);
+ if(error){toast('Suppression impossible : '+error.message);return}
+ toast('Annonce supprimée.');await loadItems();go('home')}
+
+$('publishForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!user){showAuth();return}
+ const btn=$('publishBtn');btn.disabled=true;
+ const kind=$('kind').value,base={title:$('jobTitle').value.trim(),description:$('jobDesc').value.trim(),category:$('category').value,city:$('jobLocation').value.trim()},price=String($('jobBudget').value);
+ let res;
+ if(kind==='service')res=await sb.from('services').insert({...base,price,provider_id:user.id});
+ else res=await sb.from('projects').insert({...base,budget:price,client_id:user.id});
+ btn.disabled=false;
+ if(res.error){toast('Publication impossible : '+res.error.message);return}
+ e.target.reset();query='';await loadItems();go('home');toast('Annonce publiée sur Jobthink !')});
+
+// ---------- Profil ----------
+async function loadProfile(){
+ const {data,error}=await sb.from('profiles').select('full_name').eq('id',user.id).maybeSingle();
+ if(error)toast('Erreur profil : '+error.message);
+ let name=(data&&data.full_name)||user.user_metadata?.full_name||(user.email||'').split('@')[0]||'Membre';
+ if(!data||!data.full_name){const r=await sb.from('profiles').upsert({id:user.id,full_name:name});if(r.error)toast('Profil non enregistré : '+r.error.message)}
+ profile.name=name;profile.bio=localStorage.getItem(bioKey())||'';updateProfile()}
+async function saveProfile(){
+ const name=$('editName').value.trim()||profile.name,btn=$('saveProfileBtn');btn.disabled=true;
+ const {error}=await sb.from('profiles').upsert({id:user.id,full_name:name});btn.disabled=false;
+ if(error){toast('Enregistrement impossible : '+error.message);return}
+ profile.name=name;profile.bio=$('bio').value.trim();localStorage.setItem(bioKey(),profile.bio);updateProfile();loadItems();toast('Profil enregistré.')}
+function updateProfile(){const n=profile.name||'?';$('profileName').textContent=n;$('profileEmail').textContent=user?user.email:'';$('editName').value=profile.name;$('bio').value=profile.bio;$('topAvatar').textContent=n.charAt(0).toUpperCase();$('profileAvatar').textContent=n.charAt(0).toUpperCase()}
+
+// ---------- Connexion ----------
+function showAuth(){$('authModal').classList.add('show')}
+function hideAuth(){$('authModal').classList.remove('show')}
+function authMsg(t,ok){const m=$('authMsg');m.textContent=t||'';m.classList.toggle('ok',!!ok)}
+async function doAuth(mode){
+ if(SUPABASE_KEY.startsWith('COLLE_ICI')){authMsg('Colle ta clé publique Supabase dans le fichier (ligne SUPABASE_KEY).');return}
+ const email=$('authEmail').value.trim(),pw=$('authPass').value,name=$('authName').value.trim();
+ if(!email||pw.length<6){authMsg('Entre un e-mail et un mot de passe d’au moins 6 caractères.');return}
+ $('loginBtn').disabled=$('signupBtn').disabled=true;authMsg('');
+ let r;
+ if(mode==='signup')r=await sb.auth.signUp({email,password:pw,options:{data:{full_name:name}}});
+ else r=await sb.auth.signInWithPassword({email,password:pw});
+ $('loginBtn').disabled=$('signupBtn').disabled=false;
+ if(r.error){authMsg(r.error.message);return}
+ if(mode==='signup'&&!r.data.session)authMsg('Compte créé. Vérifie ton e-mail pour le confirmer, puis connecte-toi.',true)}
+async function logout(){await sb.auth.signOut();toast('Déconnecté.')}
+async function handleSession(session){
+ if(!session){user=null;items=[];profile={name:'',bio:''};updateProfile();render();showAuth();return}
+ user=session.user;hideAuth();authMsg('');await loadProfile();await loadItems();go('home')}
+sb.auth.onAuthStateChange((event,session)=>{setTimeout(()=>handleSession(session),0)});
+
+function toast(msg){let t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),3200)}
+render();
+</script></body></html>
