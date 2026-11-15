@@ -1,0 +1,1043 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d27"><link rel="manifest" href="manifest.json"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Jobthink"><title>Jobthink – Emplois, services et freelance au Congo</title>
+<meta name="description" content="Trouve un job ou un prestataire près de chez toi. Publie ton annonce gratuitement.">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Jobthink"><meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Jobthink – Emplois, services et freelance au Congo"><meta property="og:description" content="Trouve un job ou un prestataire près de chez toi. Publie ton annonce gratuitement.">
+<meta property="og:url" content="https://lasdine14.github.io/jobthink/"><meta property="og:image" content="https://lasdine14.github.io/jobthink/icon-512.png">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Jobthink – Emplois, services et freelance au Congo"><meta name="twitter:description" content="Trouve un job ou un prestataire près de chez toi. Publie ton annonce gratuitement."><meta name="twitter:image" content="https://lasdine14.github.io/jobthink/icon-512.png">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--navy:#090d27;--navy2:#151b43;--purple:#642cff;--violet:#8c65ff;--bg:#f5f6fb;--ink:#17192d;--muted:#777b91;--line:#e8e9f1;--white:#fff;--green:#159b70}
+.bc{display:inline-flex;align-items:center;justify-content:center;width:1.05em;height:1.05em;border-radius:50%;background:#1d9bf0;color:#fff;font-size:.72em;font-weight:900;margin-left:5px;vertical-align:middle;line-height:1}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:490px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:88px;box-shadow:0 0 40px #10143a12}.top{background:var(--navy);color:#fff;padding:16px 17px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}.brand{font-weight:900;font-size:23px;letter-spacing:-1px}.brand em{color:#a78bff;font-style:normal}.logo{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--purple);border-radius:11px;margin-right:8px}.top-actions{display:flex;gap:10px;align-items:center}.round{border:1px solid #ffffff35;background:#ffffff12;color:#fff;width:37px;height:37px;border-radius:50%;font-size:17px}.avatar{background-size:cover;background-position:center;overflow:hidden;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#30235f;color:white;font-weight:800;border:2px solid #ffffff50}.page{display:none;padding:16px}.page.active{display:block}.hero{padding:21px 18px;border-radius:21px;background:linear-gradient(130deg,#151b49,#4b20c7 70%,#9068ff);color:#fff;position:relative;overflow:hidden;box-shadow:0 12px 25px #5625d52c}.hero:after{content:"✦";position:absolute;right:13px;top:-14px;font-size:120px;color:#ffffff18}.hero h1{font-size:25px;line-height:1.12;margin:0 0 9px;max-width:280px}.hero p{font-size:13px;color:#e5ddff;line-height:1.5;max-width:275px;margin:0 0 16px}.btn{border:0;border-radius:13px;padding:12px 16px;background:var(--purple);color:#fff;font-weight:800}.btn:disabled{opacity:.6}.btn.white{background:white;color:#4e25c7}.btn.soft{background:#f0ebff;color:#5428d2;box-shadow:none}.btn.line{background:white;border:1px solid var(--purple);color:var(--purple)}.btn.danger{background:white;border:1px solid #d33;color:#d33}.btn.block{width:100%;margin-top:8px}.search{height:47px;background:white;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;gap:9px;padding:0 13px;margin:15px 0}.search input{border:0;outline:0;width:100%;background:none;font-size:13px}.head{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 11px}.head h2{font-size:17px;margin:0}.small-link{border:0;background:none;color:var(--purple);font-size:12px;font-weight:800}.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.cat{border:1px solid var(--line);background:white;border-radius:14px;padding:10px 3px;font-size:10px;font-weight:700;color:var(--ink)}.cat i{font-style:normal;display:grid;place-items:center;margin:0 auto 6px;width:37px;height:37px;border-radius:12px;background:#eee9ff;font-size:20px}.cat.selected{border:1.5px solid var(--purple);background:#f3efff;color:#5428d2}.chips{display:flex;gap:7px;overflow:auto;padding:2px 0 7px}.chip{border:1px solid var(--line);border-radius:30px;padding:8px 12px;background:#fff;white-space:nowrap;font-size:11px}.chip.on{background:#eee8ff;color:#5224cf;border-color:#cbbaff}.cards{display:grid;gap:10px}.job{background:white;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;align-items:center;gap:11px}.job-icon{width:50px;height:50px;border-radius:14px;background:linear-gradient(145deg,#eee9ff,#dcd1ff);display:grid;place-items:center;font-size:23px;flex-shrink:0}.job-main{flex:1;min-width:0}.job h3{font-size:13px;margin:0 0 5px}.job p{font-size:10px;color:var(--muted);margin:3px 0}.price{font-size:12px;color:var(--purple);font-weight:900;white-space:nowrap}.job-tools{display:flex;gap:5px}.icon-btn{border:0;background:#f2efff;color:var(--purple);border-radius:9px;width:29px;height:29px}.title{font-size:21px;margin:5px 0 5px}.sub{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 15px}.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:14px;margin-bottom:11px}.field{margin:12px 0}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid #e0e1eb;border-radius:11px;outline:none;background:white;font-size:13px}.field textarea{min-height:88px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--purple)}.muted{color:var(--muted);font-size:12px;line-height:1.5}.tag{display:inline-block;padding:6px 9px;border-radius:30px;background:#f0ebff;color:#5428d2;font-size:10px;font-weight:800}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.detail-price{font-size:25px;color:var(--purple);font-weight:900;margin:8px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}.stats strong{display:block;font-size:19px}.stats span{font-size:10px;color:var(--muted)}.profile-cover{background:linear-gradient(130deg,#101638,#4b20c7);border-radius:18px;padding:23px 15px;text-align:center;color:white}.profile-cover .avatar{width:68px;height:68px;font-size:24px;margin:0 auto 8px}.listrow{padding:13px 2px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;font-size:13px}.listrow:last-child{border:0}.listrow b{margin-left:auto;color:var(--muted)}.msg{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.msg .avatar{flex-shrink:0}.msg strong{font-size:12px}.msg p{font-size:11px;color:var(--muted);margin:4px 0}.empty{text-align:center;padding:25px 12px;color:var(--muted);background:#fff;border:1px dashed #d9d9e6;border-radius:15px;font-size:12px;line-height:1.6}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(490px,100%);height:76px;padding:7px 4px calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(6,1fr);background:white;border-top:1px solid var(--line);z-index:10}.nav{border:0;background:none;color:#777b91;font-size:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.nav b{font-size:20px;line-height:22px}.nav.active{color:var(--purple);font-weight:900}.nav.publish b{background:var(--purple);color:white;border-radius:12px;width:37px;height:34px;display:grid;place-items:center;margin-top:-8px;font-size:24px}.toast{position:fixed;z-index:40;bottom:90px;left:50%;transform:translate(-50%,15px);opacity:0;transition:.2s;background:#171a32;color:white;padding:12px 16px;border-radius:12px;font-size:12px;max-width:90%;text-align:center;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.modal{display:none;position:fixed;inset:0;background:#090d27a8;z-index:20;align-items:flex-end;justify-content:center}.modal.show{display:flex}.sheet{width:min(490px,100%);background:white;border-radius:22px 22px 0 0;padding:19px;max-height:92vh;overflow:auto}.status{font-size:10px;color:var(--green);font-weight:800}.notice{padding:12px;border-radius:13px;background:#f4f0ff;font-size:12px;margin:9px 0}.hide{display:none!important}.authmsg{font-size:12px;margin:10px 0;color:#c0262d;line-height:1.5}.authmsg.ok{color:var(--green)}
+@media(min-width:700px){body{padding:20px 0}.app{border-radius:24px;overflow:hidden;min-height:850px}.bottom{position:absolute;bottom:0;border-radius:0 0 24px 24px}}
+</style></head>
+<body><div class="app">
+<header class="top"><div class="brand"><span class="logo" style="background:#fff;overflow:hidden;width:44px;height:34px;border-radius:10px"><img src="icon-192.png" alt="" style="width:34px;height:34px;transform:scale(1.6);display:block"></span>Job<em>think</em></div><div class="top-actions"><button class="round" onclick="shareApp()" aria-label="Partager">↗</button><button class="round" onclick="go('notifications')" aria-label="Notifications">♧</button><div class="avatar" id="topAvatar">?</div></div></header>
+<main>
+<section class="page active" id="home">
+ <div class="hero"><h1>Trouvez le bon job près de chez vous !</h1><p>Services, petits boulots, missions… Faites avancer vos projets avec Jobthink.</p><button class="btn white" onclick="go('search')">Explorer maintenant →</button></div><div class="panel hide" id="dlBox" style="margin-top:14px"><b>Télécharger l’application 📲</b><p class="muted">Ouvre Jobthink comme une vraie appli, en plein écran, directement depuis ton écran d’accueil.</p><button class="btn block" onclick="installApp()">Télécharger l’application</button><p class="muted" style="margin:10px 0 0;text-align:center"><a href="Jobthink-unsigned-signed.apk" download style="color:var(--purple);font-weight:800">Android : télécharger le fichier APK</a><br>Si Android affiche un avertissement, choisis « Télécharger quand même ».</p></div>
+ <div class="search"><span>⌕</span><input id="homeQuery" placeholder="Rechercher un job, un service..." oninput="searchFrom(this.value)"></div>
+ <div class="head"><h2>Catégories</h2><button class="small-link" onclick="go('search')">Tout voir →</button></div>
+ <div class="cats">
+ <button class="cat" onclick="pickCat('Informatique')"><i>🔧</i>Informatique</button><button class="cat" onclick="pickCat('Graphisme')"><i>🎨</i>Graphisme</button><button class="cat" onclick="pickCat('Réparation')"><i>💻</i>Réparation</button><button class="cat" onclick="pickCat('Services')"><i>🧹</i>Services</button>
+ </div>
+ <div class="head"><h2>⚡ Jobs flash</h2><button class="small-link" onclick="prefill('flash')">＋ Publier</button></div><div class="cards" id="homeFlash"></div>
+ <div class="head"><h2>🏆 Défis</h2><button class="small-link" onclick="go('challenges')">Tout voir →</button></div><div class="cards" id="homeChallenges"></div>
+ <div class="head"><h2>Jobs récents</h2><span class="tag" id="count">0 annonce</span></div><div class="cards" id="homeJobs"></div>
+</section>
+<section class="page" id="search"><h1 class="title">Explorer les opportunités</h1><p class="sub">Filtre les annonces pour trouver la mission qui te correspond.</p>
+ <div class="search"><span>⌕</span><input id="query" placeholder="Mot-clé, métier, quartier..." oninput="render()"></div>
+ <div class="field"><label>Catégorie</label><select id="filterCat" onchange="render()"><option value="Tout">Toutes les catégories</option><option>Informatique</option><option>Graphisme</option><option>Réparation</option><option>Services</option><option>Bâtiment</option><option>Transport</option><option>Cours particuliers</option><option>Photographie</option><option>Emploi</option></select></div>
+ <div class="field"><label>Budget maximum (FCFA)</label><input id="maxBudget" type="number" placeholder="Aucune limite" oninput="render()"></div>
+ <div class="field"><label>Ville ou quartier</label><input id="filterCity" list="cityList" placeholder="Ex : Brazzaville, Pointe-Noire, Moungali..." oninput="render()"><datalist id="cityList"></datalist><div id="cityChips" style="margin-top:8px"></div></div>
+ <div class="field"><label>Trier par</label><select id="sortBy" onchange="render()"><option value="recent">Les plus récentes</option><option value="asc">Prix croissant</option><option value="desc">Prix décroissant</option></select></div>
+ <div class="row" style="margin:4px 0 10px"><span class="muted" id="resultCount"></span><button class="small-link" type="button" onclick="resetFilters()">Réinitialiser</button></div>
+ <div class="cards" id="searchJobs"></div>
+</section>
+<section class="page" id="publish"><h1 class="title">Publier une annonce</h1><p class="sub">Décris clairement le travail à réaliser pour recevoir des propositions.</p><div class="panel"><form id="publishForm">
+ <div class="field"><label>Type d'annonce</label><select id="kind" onchange="kindChange()"><option value="project">Je cherche quelqu'un</option><option value="flash">⚡ Besoin aujourd'hui (job flash)</option><option value="service">Je propose mes services</option><option value="job">Je recrute (offre d'emploi)</option></select></div>
+ <div id="flashExtra" class="hide"><div class="field"><label>Durée de l'annonce</label><select id="flashHours"><option value="2">2 heures</option><option value="6">6 heures</option><option value="12">12 heures</option><option value="24" selected>24 heures</option></select><div class="muted" style="margin-top:6px">⚡ Pour un besoin d’aujourd’hui. L’annonce passe en haut de l’accueil puis disparaît toute seule.</div></div></div>
+ <div id="jobExtra" class="hide"><div class="field"><label>Entreprise</label><input id="jobCompany" maxlength="70" placeholder="Nom de l'entreprise"></div><div class="field"><label>Type de contrat</label><select id="jobType"><option>CDI</option><option>CDD</option><option>Stage</option><option>Temps partiel</option><option>Freelance</option></select></div></div>
+ <div class="field"><label>Catégorie</label><select id="category" required><option value="">Choisir une catégorie</option><option>Informatique</option><option>Graphisme</option><option>Réparation</option><option>Services</option><option>Bâtiment</option><option>Transport</option><option>Cours particuliers</option><option>Photographie</option><option>Emploi</option></select></div>
+ <div class="field"><label>Titre</label><input id="jobTitle" maxlength="70" required placeholder="Ex : Création d'un logo"></div>
+ <div class="field"><label>Description détaillée</label><textarea id="jobDesc" maxlength="700" required placeholder="Précise le travail, les délais et les attentes..."></textarea></div>
+ <div class="field"><label>Budget ou salaire (FCFA)</label><input id="jobBudget" type="number" min="0" required placeholder="Ex : 15000"></div>
+ <div class="field"><label>Ville et quartier</label><input id="jobLocation" required placeholder="Ex : Brazzaville, Moungali"></div>
+ <div class="field"><label>Téléphone / WhatsApp (facultatif)</label><input id="jobPhone" type="tel" maxlength="20" placeholder="Ex : +242 06 123 45 67"><div class="muted" style="margin-top:6px">Visible uniquement par les membres connectés, pour cette annonce seulement. Laisse vide pour ne pas afficher de numéro.</div></div>
+ <div class="field"><label>Photos (facultatif, jusqu’à 5)</label><input id="jobPhoto" type="file" accept="image/*" multiple onchange="addPhotos(this)"><div class="muted" style="margin-top:6px">Tu peux en choisir plusieurs, ou appuyer plusieurs fois pour en ajouter d’autres.</div><div id="photoPrev" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"></div><div class="muted" id="photoCount" style="margin-top:6px">Aucune photo</div></div>
+ <button class="btn block" id="publishBtn">＋ Publier l'annonce</button></form></div><p class="muted">Ton annonce sera enregistrée sur Jobthink et visible par les autres membres connectés.</p>
+</section>
+<section class="page" id="missions"><h1 class="title">Mes missions</h1><p class="sub">Retrouve ici les missions que tu suis.</p><div id="missionList" class="cards"></div></section>
+<section class="page" id="favorites"><h1 class="title">Mes favoris ❤️</h1><p class="sub">Les annonces que tu souhaites retrouver facilement.</p><div id="favoriteList" class="cards"></div></section>
+<section class="page" id="messages"><h1 class="title">Messagerie</h1><p class="sub">Échange avec les clients et les prestataires.</p><div id="messagesBody"></div></section>
+<section class="page" id="notifications"><h1 class="title">Notifications</h1><p class="sub">Les nouvelles activités de ton compte.</p><div class="panel"><b>Alertes sur ce téléphone 🔔</b><p class="muted" id="pushText">Reçois une alerte quand quelqu’un t’écrit, même si Jobthink est fermée.</p><button class="btn block" id="pushBtn">Activer les notifications</button></div><div class="panel"><div class="listrow">🔔 <span>Bienvenue sur Jobthink</span><b>Maintenant</b></div><div class="listrow">📌 <span>Complète ton profil pour inspirer confiance</span></div><div class="listrow">💬 <span>Retrouve tes conversations dans l’onglet Messages</span></div></div></section>
+<section class="page" id="profile"><div class="profile-cover"><div class="avatar" id="profileAvatar">?</div><h2 id="profileName" style="margin:5px 0">Mon profil</h2><small id="profileEmail">Bienvenue dans ton espace Jobthink</small></div><div class="panel stats" style="margin-top:12px"><div><strong id="myJobs">0</strong><span>Annonces</span></div><div><strong id="myFavs">0</strong><span>Favoris</span></div><div><strong id="myRating">—</strong><span>Note</span></div></div>
+ <div class="panel"><b>Ma carte Jobthink 🪪</b><p class="muted">Une carte avec ta photo, ta note et tes annonces. Partage-la en statut WhatsApp pour te faire connaître.</p><button class="btn block" onclick="openMember(user.id)">Voir et partager ma carte</button></div>
+ <div class="panel"><b>Avis reçus</b><div id="myReviews" class="muted" style="margin-top:8px">Aucun avis pour le moment.</div></div>
+ <div class="panel"><b>Mon compte</b><div class="field"><label>Photo de profil</label><input id="avatarFile" type="file" accept="image/*" onchange="openCrop(this)"></div><div class="field"><label>Nom ou pseudo</label><input id="editName" placeholder="Ton nom"></div><div class="field"><label>Métier ou titre (affiché sur ta carte)</label><input id="editHeadline" maxlength="60" placeholder="Ex : Électricien, Graphiste, Étudiant en droit"></div><div class="field"><label>Ville</label><input id="profCity" maxlength="60" placeholder="Ex : Brazzaville"></div><div class="field"><label>Présentation</label><textarea id="bio" placeholder="Présente tes compétences et ton expérience..."></textarea></div><button class="btn block" id="saveProfileBtn" onclick="saveProfile()">Enregistrer mon profil</button></div>
+ <div class="panel"><button class="btn line block" onclick="go('favorites')">♡ Voir mes favoris</button></div>
+ <div class="panel hide" id="adminBox"><b>Administration 🛡️</b><p class="muted">Consulte les annonces signalées par les membres.</p><button class="btn soft block" onclick="go('admin')">🚩 Voir les signalements</button></div>
+ <div class="panel hide" id="installBox"><b>Installer Jobthink 📲</b><p class="muted">Ajoute l’appli sur ton écran d’accueil pour l’ouvrir comme une vraie application.</p><button class="btn block" onclick="installApp()">Installer l’application</button></div>
+ <div class="panel" id="premiumBox"><b>Jobthink Premium 👑</b><p class="muted" id="premiumText">Badge 👑 sur ton profil et tes annonces, et tes annonces passent avant celles des autres membres. 1 000 FCFA pour 30 jours.</p><button class="btn soft block" id="premiumBtn" onclick="openPromo('premium')">Devenir Premium</button></div>
+ <div class="panel" id="verifBox"><b>Badges de confiance</b><p class="muted" id="verifText"></p><button class="btn soft block" id="verifBtn" onclick="openVerif()">✅ Faire vérifier mon identité</button></div>
+ <div class="panel"><div class="listrow" style="cursor:pointer" onclick="shareApp()">📤 <span>Partager Jobthink</span><b>›</b></div><div class="listrow" style="cursor:pointer" onclick="showLegal('privacy')">🛡️ <span>Confidentialité</span><b>›</b></div><div class="listrow" style="cursor:pointer" onclick="showLegal('terms')">📄 <span>Conditions d'utilisation</span><b>›</b></div><div class="listrow" style="cursor:pointer" onclick="showLegal('help')">❓ <span>Centre d'aide et sécurité</span><b>›</b></div><button class="btn line block" onclick="logout()">Se déconnecter</button></div>
+</section>
+<section class="page" id="admin"><button class="small-link" onclick="go('profile')">← Profil</button><h1 class="title" style="margin-top:10px">Paiements 💰</h1><p class="sub">Vérifie le paiement reçu sur ton Mobile Money avant de valider.</p><div id="adminPromos"></div><h1 class="title" style="margin-top:22px">Vérifications d’identité ✅</h1><p class="sub">Valide seulement après le paiement et un appel vidéo WhatsApp.</p><div id="adminVerifs"></div><h1 class="title" style="margin-top:22px">Messages signalés 💬</h1><p class="sub">Messages et photos signalés par les membres.</p><div id="adminMsgReports"></div><h1 class="title" style="margin-top:22px">Annonces signalées 🚩</h1><p class="sub">Annonces signalées par les membres, les plus récentes d’abord.</p><div id="adminList"></div></section>
+<section class="page" id="challenges"><h1 class="title">Défis 🏆</h1><p class="sub">Relève un défi, vote pour les meilleurs et fais connaître ton talent.</p><button class="btn block" onclick="openNewChallenge()">＋ Lancer un défi</button><div class="cards" id="chList" style="margin-top:12px"></div></section>
+<section class="page" id="challenge"><button class="small-link" onclick="go('challenges')">← Défis</button><div class="panel" style="margin-top:12px" id="chHead"></div><div id="chActions"></div><div class="head"><h2>Participations</h2></div><div id="chEntries"></div></section>
+<section class="page" id="detail"><button class="small-link" onclick="go('home')">← Retour</button><div class="panel" style="margin-top:12px"><div class="row"><span class="tag" id="dCategory"></span><button class="icon-btn" id="dFav" onclick="toggleDetailFav()">♡</button></div><div id="dGallery" class="hide" style="display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:13px"></div><h1 class="title" id="dTitle" style="margin-top:13px"></h1><div class="detail-price" id="dPrice"></div><p class="muted" id="dLocation"></p><hr style="border:0;border-top:1px solid var(--line);margin:17px 0"><h3>Description</h3><p class="muted" id="dDesc"></p><h3>Publié par</h3><p class="muted" id="dOwner"></p><button class="small-link" type="button" onclick="openMember(current.ownerId)">Voir la carte du membre →</button><div id="dRating" class="muted"></div><div id="dReviews"></div><button class="btn soft block hide" id="dReviewBtn" onclick="openReview()">★ Laisser un avis</button><button class="btn line block hide" id="dReportBtn" onclick="openReport()">🚩 Signaler cette annonce</button><div class="notice">🔒 Astuce sécurité : échange les informations utiles dans Jobthink et vérifie les détails avant d'accepter une mission.</div><div id="dCallBox" class="hide" style="display:flex;gap:8px;margin-top:8px"><a id="dCall" class="btn line" style="flex:1;text-align:center;text-decoration:none;display:block;padding:12px 8px">📞 Appeler</a><a id="dWa" class="btn" target="_blank" rel="noopener" style="flex:1;text-align:center;text-decoration:none;display:block;padding:12px 8px;background:var(--green)">💬 WhatsApp</a></div><button class="btn block" onclick="openContact()">Contacter / Proposer mes services</button><button class="btn line block" onclick="createMission()">Ajouter à mes missions</button><button class="btn soft block hide" id="dEdit" onclick="openEdit()">✏️ Modifier mon annonce</button><button class="btn soft block hide" id="dBoost" onclick="openPromo('boost')">⭐ Mettre à la une</button><button class="btn danger block hide" id="dDelete" onclick="deleteCurrent()">Supprimer mon annonce</button></div></section>
+</main>
+<nav class="bottom">
+ <button class="nav active" data-id="home" onclick="go('home')"><b>⌂</b>Accueil</button><button class="nav" data-id="search" onclick="go('search')"><b>⌕</b>Explorer</button><button class="nav publish" data-id="publish" onclick="go('publish')"><b>＋</b>Publier</button><button class="nav" data-id="missions" onclick="go('missions')"><b>▣</b>Missions</button><button class="nav" id="navMsg" data-id="messages" onclick="activeChat=null;go('messages')"><b>▤</b>Messages</button><button class="nav" data-id="profile" onclick="go('profile')"><b>♙</b>Profil</button>
+</nav></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="contactModal"><div class="sheet"><h2 style="margin:0 0 4px">Envoyer un message</h2><p class="muted" id="contactTitle"></p>
+<div class="field"><label>Ton message</label><textarea id="contactText" maxlength="1000" placeholder="Bonjour, je suis intéressé(e) par votre annonce..."></textarea></div>
+<button class="btn block" id="contactSend" onclick="sendContact()">Envoyer</button>
+<button class="btn soft block" onclick="$('contactModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="cropModal"><div class="sheet"><h2 style="margin:0 0 4px">Ajuster ta photo</h2><p class="muted">Glisse l’image avec ton doigt pour la placer, et utilise le curseur pour zoomer.</p>
+<canvas id="cropCanvas" width="280" height="280" style="width:280px;height:280px;max-width:100%;display:block;margin:12px auto;border-radius:50%;touch-action:none;background:#eee;cursor:grab"></canvas>
+<div class="field"><label>Zoom</label><input id="cropZoom" type="range" min="1" max="3" step="0.01" value="1" oninput="cropZoom(this.value)"></div>
+<button class="btn block" id="cropSave" onclick="saveCrop()">Enregistrer la photo</button>
+<button class="btn soft block" onclick="$('cropModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="reportModal"><div class="sheet"><h2 id="reportTitle" style="margin:0 0 4px">Signaler cette annonce</h2><p class="muted" id="reportWho"></p>
+<div class="field"><label>Motif</label><select id="reportReason"><option>Arnaque ou fausse annonce</option><option>Demande d’argent pour obtenir un emploi</option><option>Contenu inapproprié ou illégal</option><option>Informations trompeuses</option><option>Spam ou doublon</option><option>Autre</option></select></div>
+<div class="field"><label>Précisions (facultatif)</label><textarea id="reportText" maxlength="500" placeholder="Explique-nous ce qui ne va pas..."></textarea></div>
+<button class="btn block" id="reportSend" onclick="sendReport()">Envoyer le signalement</button>
+<button class="btn soft block" onclick="$('reportModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="verifModal"><div class="sheet"><h2 style="margin:0 0 4px">Identité vérifiée ✅</h2><p class="muted">Le badge montre que tu es une vraie personne. Il ne certifie pas tes compétences.</p>
+<div class="notice"><b>1. Envoie <span id="verifAmount"></span></b> par Mobile Money au :<div style="font-size:19px;font-weight:900;margin:6px 0;color:var(--purple)">+242 06 727 99 04</div><button class="btn soft" type="button" onclick="copyPayNumber()">Copier le numéro</button></div>
+<div class="notice"><b>2. Confirme ta demande</b></div>
+<div class="field"><label>Ton numéro WhatsApp (pour l’appel vidéo)</label><input id="verifWa" type="tel" maxlength="20" placeholder="Ex : +242 06 123 45 67"></div>
+<div class="field"><label>Numéro avec lequel tu as payé</label><input id="verifPhone" type="tel" maxlength="20" placeholder="Ex : +242 06 123 45 67"></div>
+<div class="field"><label>Référence de la transaction (facultatif)</label><input id="verifRef" maxlength="40" placeholder="Ex : numéro reçu par SMS"></div>
+<p class="muted">Nous te contactons sur WhatsApp pour un court appel vidéo. Aucune photo de pièce d’identité n’est stockée dans l’app.</p>
+<button class="btn block" id="verifSend" onclick="sendVerif()">Envoyer ma demande</button><button class="btn soft block" onclick="$('verifModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="memberModal"><div class="sheet"><canvas id="memberCanvas" width="800" height="450" style="width:100%;border-radius:16px;display:block;background:#151b43"></canvas><p class="muted hide" id="memberBio" style="margin:12px 2px 0;white-space:pre-wrap"></p><div id="memberAds"></div><button class="btn block" onclick="shareCard()">📤 Partager cette carte</button><button class="btn line block" onclick="copyMemberLink()">🔗 Copier le lien du profil</button><button class="btn soft block" onclick="$('memberModal').classList.remove('show')">Fermer</button></div></div>
+<div class="modal" id="entryModal"><div class="sheet"><h2 style="margin:0 0 4px">Participer au défi</h2><p class="muted">Montre ton talent : un texte, une photo, ou les deux. Une seule participation par défi.</p><div class="field"><label>Ta participation</label><textarea id="entryText" maxlength="500" placeholder="Décris ta réponse au défi..."></textarea></div><div class="field"><label>Photo (facultatif)</label><input type="file" accept="image/*" onchange="pickEntryPhoto(this)"><div class="muted" id="entryPhotoName" style="margin-top:6px">Aucune photo</div></div><button class="btn block" id="entrySend" onclick="sendEntry()">Envoyer ma participation</button><button class="btn soft block" onclick="$('entryModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="chNewModal"><div class="sheet"><h2 style="margin:0 0 4px">Lancer un défi 🏆</h2><p class="muted">Propose un mini-challenge. La communauté participe et vote pour le meilleur.</p><div class="field"><label>Titre du défi</label><input id="chTitle" maxlength="80" placeholder="Ex : Crée un logo pour ma boutique"></div><div class="field"><label>Description</label><textarea id="chDesc" maxlength="500" placeholder="Explique ce qu'il faut faire, les règles..."></textarea></div><div class="field"><label>Catégorie (facultatif)</label><select id="chCat"><option value="">Aucune</option><option>Informatique</option><option>Graphisme</option><option>Réparation</option><option>Services</option><option>Bâtiment</option><option>Transport</option><option>Cours particuliers</option><option>Photographie</option><option>Emploi</option></select></div><div class="field"><label>Prix pour le gagnant (facultatif)</label><input id="chPrize" maxlength="80" placeholder="Ex : 5 000 FCFA, une vraie mission..."><div class="muted" style="margin-top:6px">Jobthink ne gère pas le paiement : c’est à toi de remettre le prix.</div></div><div class="field"><label>Durée</label><select id="chDays"><option value="3">3 jours</option><option value="7" selected>7 jours</option><option value="14">14 jours</option></select></div><button class="btn block" id="chSend" onclick="sendChallenge()">Lancer le défi</button><button class="btn soft block" onclick="$('chNewModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="legalModal" style="z-index:30"><div class="sheet"><h2 id="legalTitle" style="margin:0 0 8px"></h2><div id="legalBody"></div><button class="btn block" onclick="$('legalModal').classList.remove('show')">Fermer</button></div></div>
+<div class="modal" id="editModal"><div class="sheet"><h2 style="margin:0 0 4px">Modifier mon annonce</h2><p class="muted">Modifie les informations, le numéro et les photos de ton annonce.</p>
+<div id="editJobExtra" class="hide"><div class="field"><label>Entreprise</label><input id="editCompany" maxlength="70"></div><div class="field"><label>Type de contrat</label><select id="editJobType"><option>CDI</option><option>CDD</option><option>Stage</option><option>Temps partiel</option><option>Freelance</option></select></div></div>
+<div class="field"><label>Catégorie</label><select id="editCategory"><option>Informatique</option><option>Graphisme</option><option>Réparation</option><option>Services</option><option>Bâtiment</option><option>Transport</option><option>Cours particuliers</option><option>Photographie</option><option>Emploi</option></select></div>
+<div class="field"><label>Titre</label><input id="editTitle" maxlength="70"></div>
+<div class="field"><label>Description détaillée</label><textarea id="editDesc" maxlength="700"></textarea></div>
+<div class="field"><label>Budget ou salaire (FCFA)</label><input id="editBudget" type="number" min="0"></div>
+<div class="field"><label>Ville et quartier</label><input id="editCity"></div>
+<div class="field"><label>Téléphone / WhatsApp (facultatif)</label><input id="editPhone" type="tel" maxlength="20" placeholder="Ex : +242 06 123 45 67"><div class="muted" style="margin-top:6px">Visible par les membres connectés. Vide = aucun numéro affiché.</div></div>
+<div class="field"><label>Photos (jusqu’à 5)</label><input id="editPhotoInput" type="file" accept="image/*" multiple onchange="addEditPhotos(this)"><div id="editPhotoPrev" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px"></div><div class="muted" id="editPhotoCount" style="margin-top:6px"></div></div>
+<button class="btn block" id="editSave" onclick="saveEdit()">Enregistrer les modifications</button>
+<button class="btn soft block" onclick="$('editModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="promoModal"><div class="sheet"><h2 id="promoTitle" style="margin:0 0 4px"></h2><p class="muted" id="promoSub"></p>
+<div class="notice"><b>1. Envoie <span id="promoAmount"></span></b> par Mobile Money au :<div style="font-size:19px;font-weight:900;margin:6px 0;color:var(--purple)">+242 06 727 99 04</div><button class="btn soft" type="button" onclick="copyPayNumber()">Copier le numéro</button></div>
+<div class="notice"><b>2. Confirme ton paiement</b></div>
+<div class="field"><label>Numéro avec lequel tu as payé</label><input id="promoPhone" type="tel" maxlength="20" placeholder="Ex : +242 06 123 45 67"></div>
+<div class="field"><label>Référence de la transaction (facultatif)</label><input id="promoRef" maxlength="40" placeholder="Ex : numéro reçu par SMS"></div>
+<p class="muted">Ta demande est activée après vérification du paiement.</p>
+<button class="btn block" id="promoSend" onclick="sendPromo()">J’ai payé, envoyer ma demande</button>
+<button class="btn soft block" onclick="$('promoModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="resetModal"><div class="sheet"><h2 style="margin:0 0 4px">Nouveau mot de passe</h2><p class="muted">Choisis un nouveau mot de passe pour ton compte.</p>
+<div class="field"><label>Nouveau mot de passe (6 caractères minimum)</label><input id="newPass" type="password" autocomplete="new-password"></div>
+<div class="field"><label>Confirmer le mot de passe</label><input id="newPass2" type="password" autocomplete="new-password"></div>
+<div class="authmsg" id="resetMsg"></div>
+<button class="btn block" id="resetSave" onclick="saveNewPassword()">Enregistrer le mot de passe</button></div></div>
+<div class="modal" id="reviewModal"><div class="sheet"><h2 style="margin:0 0 4px">Laisser un avis</h2><p class="muted" id="reviewWho"></p>
+<div id="stars" style="font-size:38px;text-align:center;margin:8px 0;letter-spacing:6px"></div>
+<div class="field"><label>Commentaire (facultatif)</label><textarea id="reviewText" maxlength="500" placeholder="Comment s’est passée votre collaboration ?"></textarea></div>
+<button class="btn block" id="reviewSend" onclick="sendReview()">Envoyer mon avis</button>
+<button class="btn soft block" onclick="$('reviewModal').classList.remove('show')">Annuler</button></div></div>
+<div class="modal" id="authModal"><div class="sheet"><h2 style="margin:0 0 4px">Bienvenue sur Jobthink</h2><p class="muted">Connecte-toi ou crée ton compte pour voir et publier des annonces.</p>
+<div class="field"><label>Adresse e-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="toi@exemple.com"></div>
+<div class="field"><label>Confirme ton e-mail (pour créer un compte)</label><input id="authEmail2" type="email" autocomplete="off" placeholder="Retape ton adresse e-mail"></div>
+<div class="field"><label>Mot de passe (6 caractères minimum)</label><input id="authPass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+<div class="field"><label>Nom ou pseudo (pour créer un compte)</label><input id="authName" placeholder="Ex : Lasdine14"></div>
+<div class="authmsg" id="authMsg"></div>
+<button class="small-link hide" id="authFix" type="button" onclick="applyFix()"></button>
+<div style="text-align:right"><button class="small-link" onclick="forgotPassword()">Mot de passe oublié ?</button></div>
+<button class="btn block" id="loginBtn" onclick="doAuth('login')">Se connecter</button>
+<button class="btn line block" id="signupBtn" onclick="doAuth('signup')">Créer mon compte</button>
+<p class="muted" style="margin-top:12px;font-size:11px">En créant un compte, tu acceptes les <a href="#" onclick="showLegal('terms');return false" style="color:var(--purple)">Conditions d’utilisation</a> et la <a href="#" onclick="showLegal('privacy');return false" style="color:var(--purple)">Politique de confidentialité</a>.</p></div></div>
+<script>
+// ====== CONFIGURATION SUPABASE ======
+const SUPABASE_URL='https://fpaxrszsqfevfgruekoe.supabase.co';
+const SUPABASE_KEY='sb_publishable_N68JcLdW529XXhrOsrQMqA_305YskxE'; // clé publique (jamais la clé secrète)
+// =====================================
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+const emoji={Informatique:'🔧',Graphisme:'🎨',Réparation:'💻',Services:'🧹',Bâtiment:'🏗️',Transport:'🚚','Cours particuliers':'📚',Photographie:'📸',Emploi:'👔'};
+let items=[],user=null,current=null,query='',messages=[],activeChat=null,msgErr=false;
+let profile={name:'',bio:'',avatar:'',headline:'',city:'',since:''};
+let favorites=[],missions=[],reviews=[],myStars=0,revErr=false;
+let contacts={},reports=[],rtChan=null,editKept=[],editNew=[];
+const PAY_PHONE='+242067279904',PAY_SHOW='+242 06 727 99 04';
+const PRICES={boost:100,premium:1000,verify:2000},DAYS={boost:7,premium:30};
+const PRO_MIN=5,BC='<span class="bc" title="Administrateur Jobthink">✔</span>';let verifiedSet=new Set(),adminSet=new Set(),myVerif=[],verifErr=false,adminVerifRows=[];
+let boostedKeys=new Set(),premiumUsers=new Set(),myPromos=[],promoKind='boost',promoErr=false,adminPromoRows=[];
+function isPremium(){return !!(user&&premiumUsers.has(user.id))}
+function rank(j){return (boostedKeys.has(j.key)?2:(premiumUsers.has(j.ownerId)?1:0))+(j.flash?0.5:0)}
+const ADMIN_EMAILS=['lasdine14@gmail.com'];
+const VAPID_PUBLIC='BNVDZdV3xCZ_beomYmDbgjunw87ttj20SR7jDsEyCBuR62oIaJbxQf1-fmASXhOMMIwFoQgAQ2vMOk85RiCipVI'; // clé publique (la privée reste dans Supabase)
+function isAdmin(){return !!(user&&ADMIN_EMAILS.includes((user.email||'').toLowerCase()))}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function num(v){return Number(String(v??'').replace(/[^\d]/g,''))||0}
+function money(n){return n?Number(n).toLocaleString('fr-FR')+' FCFA':'À discuter'}
+function bioKey(){return 'jt3_bio_'+(user?user.id:'')}
+
+// ---------- Annonces ----------
+function card(j){return `<article class="job"><div class="job-icon" onclick="openJob('${j.key}')"${j.image?` style="background:url('${safe(j.image)}') center/cover"`:''}>${j.image?'':(emoji[j.category]||'💼')}</div><div class="job-main" onclick="openJob('${j.key}')"><h3>${safe(j.title)}${premiumUsers.has(j.ownerId)?' 👑':''}${badgeIcons(j.ownerId)}</h3><p>📍 ${safe(j.location||'Lieu non précisé')}</p><p>${j.flash?'<b style="color:#d9480f">⚡ Urgent · '+leftTxt(j)+'</b> · ':''}${boostedKeys.has(j.key)?'<b style="color:var(--purple)">⭐ À la une</b> · ':''}${safe(j.category)} · ${safe(j.kind)}</p><div class="price">${money(j.budget)}</div></div><div class="job-tools"><button class="icon-btn" onclick="event.stopPropagation();toggleFav('${j.key}')">${favorites.includes(j.key)?'♥':'♡'}</button></div></article>`}
+function norm(t){return String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()}
+function cityOf(loc){return String(loc||'').split(',')[0].trim()}
+function getFiltered(home){
+ const q=(query||$('query')?.value||'').toLowerCase(),cat=$('filterCat')?.value||'Tout',max=Number($('maxBudget')?.value||0);
+ const city=home?'':norm($('filterCity')?.value),sort=home?'recent':($('sortBy')?.value||'recent');
+ const list=items.filter(j=>alive(j)&&!(home&&j.flash)&&(cat==='Tout'||j.category===cat)&&(!max||j.budget<=max)&&(!city||norm(j.location).includes(city))&&(!q||(j.title+' '+j.description+' '+j.location+' '+j.category).toLowerCase().includes(q)));
+ if(sort==='asc'||sort==='desc')return list.sort((a,b)=>{const pa=a.budget>0,pb=b.budget>0;if(pa!==pb)return pa?-1:1;return sort==='asc'?a.budget-b.budget:b.budget-a.budget});
+ return list.sort((a,b)=>rank(b)-rank(a))}
+let citySig='';
+function refreshCityUi(){
+ const cnt={};items.forEach(j=>{const c=cityOf(j.location);if(c)cnt[c]=(cnt[c]||0)+1});
+ const names=Object.keys(cnt).sort((x,y)=>cnt[y]-cnt[x]||x.localeCompare(y));
+ const cur=norm($('filterCity')?.value),sig=names.join('|')+'#'+cur;
+ if(sig===citySig)return;citySig=sig;
+ $('cityList').innerHTML=names.map(c=>'<option value="'+safe(c)+'"></option>').join('');
+ $('cityChips').innerHTML=names.slice(0,6).map(c=>{const on=norm(c)===cur;return '<button type="button" class="tag" data-c="'+safe(c)+'" onclick="pickCity(this.dataset.c)" style="border:0;cursor:pointer;margin:0 6px 6px 0;'+(on?'background:var(--purple);color:#fff':'')+'">'+safe(c)+' · '+cnt[c]+'</button>'}).join('')}
+function pickCity(c){const i=$('filterCity');i.value=norm(i.value)===norm(c)?'':c;render()}
+function resetFilters(){query='';$('query').value='';$('filterCat').value='Tout';$('maxBudget').value='';$('filterCity').value='';$('sortBy').value='recent';render()}
+function render(){
+ let list=getFiltered(true),slist=getFiltered();
+ $('homeJobs').innerHTML=list.slice(0,5).map(card).join('')||'<div class="empty">Aucune annonce pour le moment.<br>Sois le premier à publier !</div>';
+ $('searchJobs').innerHTML=slist.map(card).join('')||'<div class="empty">Aucune annonce ne correspond à ta recherche.</div>';
+ const rc=$('resultCount');if(rc)rc.textContent=slist.length+(slist.length>1?' annonces':' annonce');refreshCityUi();renderFlashHome();renderChallengesHome();updateVerifUi();
+ $('count').textContent=items.length+(items.length>1?' annonces':' annonce');
+ $('myJobs').textContent=items.filter(j=>user&&j.ownerId===user.id).length;
+ $('myFavs').textContent=favorites.length;
+ if(user){const rt=ratingOf(user.id);$('myRating').textContent=rt.n?rt.avg.toFixed(1)+' ★':'—';const mr=reviews.filter(r=>r.reviewed_id===user.id);$('myReviews').innerHTML=mr.length?mr.map(reviewHtml).join(''):'Aucun avis pour le moment.'}
+ $('favoriteList').innerHTML=items.filter(j=>favorites.includes(j.key)).map(card).join('')||'<div class="empty">Tu n’as pas encore de favoris.</div>';
+ $('missionList').innerHTML=missions.length?missions.map(m=>`<div class="panel"><div class="row"><b>${safe(m.title)}</b><span class="tag">${safe(m.status)}</span></div><p class="muted">${money(m.budget)} · ${safe(m.location)}</p><button class="btn soft" onclick="advanceMission('${m.id}')">Mettre à jour le statut</button></div>`).join(''):'<div class="empty">Aucune mission enregistrée.<br>Ouvre une annonce pour l’ajouter ici.</div>'}
+
+function imgsOf(r){const a=Array.isArray(r.images)?r.images.filter(Boolean):[];if(!a.length&&r.image_url)a.push(r.image_url);return a}
+async function loadItems(){
+ const [p,s,jb]=await Promise.all([
+  sb.from('projects').select('id,created_at,title,description,category,budget,city,image_url,images,client_id,is_flash,expires_at,profiles(full_name)').order('created_at',{ascending:false}),
+  sb.from('services').select('id,created_at,title,description,category,price,city,image_url,images,provider_id,profiles(full_name)').order('created_at',{ascending:false}),
+  sb.from('jobs').select('id,created_at,title,description,category,salary,city,company,job_type,image_url,images,employer_id,profiles(full_name)').order('created_at',{ascending:false})
+ ]);
+ if(p.error)toast('Erreur annonces : '+p.error.message);
+ if(s.error)toast('Erreur services : '+s.error.message);
+ const a=(p.data||[]).map(r=>({key:'projects:'+r.id,table:'projects',id:r.id,created:r.created_at,kind:r.is_flash?'Besoin aujourd’hui ⚡':'Je cherche quelqu’un',flash:!!r.is_flash,expires:r.expires_at||null,category:r.category||'Services',title:r.title,description:r.description||'',budget:num(r.budget),location:r.city||'',owner:r.profiles?.full_name||'Membre Jobthink',images:imgsOf(r),image:imgsOf(r)[0]||'',ownerId:r.client_id}));
+ const b=(s.data||[]).map(r=>({key:'services:'+r.id,table:'services',id:r.id,created:r.created_at,kind:'Je propose mes services',category:r.category||'Services',title:r.title,description:r.description||'',budget:num(r.price),location:r.city||'',owner:r.profiles?.full_name||'Membre Jobthink',images:imgsOf(r),image:imgsOf(r)[0]||'',ownerId:r.provider_id}));
+ if(jb.error)toast('Erreur emplois : '+jb.error.message);
+ const c=(jb.data||[]).map(r=>({key:'jobs:'+r.id,table:'jobs',id:r.id,created:r.created_at,kind:'Offre d’emploi'+(r.job_type?' · '+r.job_type:''),category:r.category||'Emploi',title:r.title,description:r.description||'',budget:num(r.salary),location:r.city||'',company:r.company||'',jobType:r.job_type||'',owner:(r.company?r.company+' · ':'')+(r.profiles?.full_name||'Membre Jobthink'),images:imgsOf(r),image:imgsOf(r)[0]||'',ownerId:r.employer_id}));
+ items=[...a,...b,...c].filter(alive).sort((x,y)=>new Date(y.created)-new Date(x.created));
+ render()}
+
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.id===id));render();if(id==='messages')renderMessages();if(id==='challenges'){renderChallengeList();loadChallenges()}if(id==='admin'){loadAdminPromos();loadAdminVerifs();loadAdminMsgReports();loadReports()}if(id==='notifications')refreshPushUi();window.scrollTo({top:0,behavior:'smooth'})}
+function pickCat(cat){$('filterCat').value=cat;go('search');render()}
+function searchFrom(v){query=v;$('query').value=v;go('search');$('query').value=v;render()}
+function openJob(key){$('memberModal').classList.remove('show');current=items.find(j=>j.key===key);if(!current)return;$('dCategory').textContent=current.category+(boostedKeys.has(current.key)?' · ⭐ À la une':'')+(current.flash?' · ⚡ expire dans '+leftTxt(current):'');const gal=$('dGallery');if(current.images&&current.images.length){const one=current.images.length===1;gal.innerHTML=current.images.map(u=>`<img src="${safe(u)}" alt="" onclick="window.open(this.src,'_blank')" style="flex:0 0 ${one?'100%':'86%'};max-height:280px;object-fit:cover;border-radius:14px;scroll-snap-align:center">`).join('');gal.classList.remove('hide')}else{gal.innerHTML='';gal.classList.add('hide')}$('dTitle').textContent=current.title;$('dPrice').textContent=money(current.budget);$('dLocation').textContent='📍 '+(current.location||'Lieu non précisé');$('dDesc').textContent=current.description;$('dOwner').innerHTML=ownerHtml(current);$('dFav').textContent=favorites.includes(key)?'♥':'♡';$('dDelete').classList.toggle('hide',!(user&&current.ownerId===user.id));$('dEdit').classList.toggle('hide',!(user&&current.ownerId===user.id));updateBoostBtn();$('dReportBtn').classList.toggle('hide',!user||current.ownerId===user.id);showReviews();showCallBtns();go('detail')}
+async function loadUserData(){
+ const [f,m]=await Promise.all([sb.from('favorites').select('listing_key'),sb.from('missions').select('id,listing_key,title,budget,location,status').order('created_at',{ascending:false})]);
+ if(f.error)toast('Erreur favoris : '+f.error.message);
+ if(m.error)toast('Erreur missions : '+m.error.message);
+ favorites=(f.data||[]).map(r=>r.listing_key);
+ missions=(m.data||[]).map(r=>({id:r.id,jobKey:r.listing_key,title:r.title,budget:Number(r.budget)||0,location:r.location||'',status:r.status}));
+ render()}
+async function toggleFav(key){
+ if(!user)return;const has=favorites.includes(key);
+ favorites=has?favorites.filter(x=>x!==key):[...favorites,key];render();
+ const r=has?await sb.from('favorites').delete().eq('user_id',user.id).eq('listing_key',key):await sb.from('favorites').insert({user_id:user.id,listing_key:key});
+ if(r.error){toast('Erreur : '+r.error.message);await loadUserData();return}
+ toast(has?'Retiré des favoris':'Ajouté aux favoris ❤️')}
+function toggleDetailFav(){if(current){toggleFav(current.key);$('dFav').textContent=favorites.includes(current.key)?'♥':'♡'}}
+// ---------- Téléphone / WhatsApp ----------
+function waNum(p){let d=String(p).replace(/\D/g,'');if(d.startsWith('00'))d=d.slice(2);return d}
+function showCallBtns(){
+ const p=current&&user?(contacts[current.key]||''):'';
+ $('dCallBox').classList.toggle('hide',!p);
+ if(p){$('dCall').href='tel:'+p.replace(/[^\d+]/g,'');$('dWa').href='https://wa.me/'+waNum(p)+'?text='+encodeURIComponent('Bonjour, je vous contacte au sujet de votre annonce « '+current.title+' » sur Jobthink.')}}
+async function loadContacts(){
+ const {data,error}=await sb.from('listing_contacts').select('listing_key,phone');
+ if(error){toast('Erreur contacts : '+error.message);return}
+ contacts={};(data||[]).forEach(r=>contacts[r.listing_key]=r.phone)}
+function phoneOk(raw){const v=String(raw||'').trim();return !v||(v.length>=6&&v.length<=20)}
+async function savePhone(key,raw){
+ const phone=String(raw||'').trim();
+ if(!phone){const r=await sb.from('listing_contacts').delete().eq('listing_key',key).eq('owner_id',user.id);if(!r.error)delete contacts[key];return r.error}
+ const r=await sb.from('listing_contacts').upsert({listing_key:key,owner_id:user.id,phone});if(!r.error)contacts[key]=phone;return r.error}
+// ---------- Avis ----------
+function stars(n){const r=Math.round(n);return '★'.repeat(r)+'☆'.repeat(5-r)}
+function ratingOf(uid){const l=reviews.filter(r=>r.reviewed_id===uid);return{n:l.length,avg:l.length?l.reduce((a,r)=>a+r.rating,0)/l.length:0}}
+function reviewHtml(r){const n=r.reviewer?.full_name||'Membre Jobthink';return `<div class="msg"><div class="avatar">${safe(n.charAt(0).toUpperCase())}</div><div style="flex:1;min-width:0"><strong>${safe(n)}</strong> <span style="color:#e8a400">${stars(r.rating)}</span>${r.comment?`<p>${safe(r.comment)}</p>`:''}</div></div>`}
+function showReviews(){
+ if(!current)return;const rt=ratingOf(current.ownerId),list=reviews.filter(r=>r.reviewed_id===current.ownerId);
+ $('dRating').innerHTML=rt.n?`<span style="color:#e8a400">${stars(rt.avg)}</span> ${rt.avg.toFixed(1)} · ${rt.n} avis`:'Aucun avis pour le moment.';
+ $('dReviews').innerHTML=list.slice(0,3).map(reviewHtml).join('');
+ const mine=user&&current.ownerId===user.id,done=user&&reviews.some(r=>r.reviewer_id===user.id&&r.listing_key===current.key);
+ $('dReviewBtn').classList.toggle('hide',!user||mine||done)}
+async function loadReviews(){
+ const {data,error}=await sb.from('reviews').select('id,created_at,reviewer_id,reviewed_id,listing_key,rating,comment,reviewer:profiles!reviews_reviewer_id_fkey(full_name)').order('created_at',{ascending:false});
+ if(error){if(!revErr){toast('Erreur avis : '+error.message);revErr=true}return}
+ revErr=false;reviews=data||[];render();if(current&&$('detail').classList.contains('active'))showReviews()}
+function setStars(n){myStars=n;$('stars').innerHTML=[1,2,3,4,5].map(i=>`<span onclick="setStars(${i})" style="cursor:pointer;color:${i<=n?'#e8a400':'#ccc'}">★</span>`).join('')}
+function openReview(){if(!current||!user)return;$('reviewWho').textContent='Pour : '+current.owner+' · '+current.title;$('reviewText').value='';setStars(0);$('reviewModal').classList.add('show')}
+async function sendReview(){
+ if(!myStars){toast('Choisis une note de 1 à 5 étoiles.');return}
+ const btn=$('reviewSend');btn.disabled=true;
+ const {error}=await sb.from('reviews').insert({reviewer_id:user.id,reviewed_id:current.ownerId,listing_key:current.key,rating:myStars,comment:$('reviewText').value.trim()});
+ btn.disabled=false;
+ if(error){toast(error.code==='23505'?'Tu as déjà donné ton avis pour cette annonce.':'Envoi impossible : '+error.message);return}
+ $('reviewModal').classList.remove('show');await loadReviews();toast('Merci pour ton avis !')}
+// ---------- Messagerie ----------
+function openContact(){
+ if(!current)return;if(!user){showAuth();return}
+ if(current.ownerId===user.id){toast('C’est ta propre annonce.');return}
+ $('contactTitle').textContent='À : '+current.owner+' · '+current.title;$('contactText').value='';
+ $('contactModal').classList.add('show')}
+async function sendContact(){
+ const text=$('contactText').value.trim();if(!text){toast('Écris ton message.');return}
+ const btn=$('contactSend');btn.disabled=true;
+ const {error}=await sb.from('messages').insert({sender_id:user.id,receiver_id:current.ownerId,listing_title:current.title,content:text});
+ btn.disabled=false;
+ if(error){toast('Envoi impossible : '+error.message);return}
+ $('contactModal').classList.remove('show');activeChat=current.ownerId;
+ await loadMessages();go('messages');toast('Message envoyé.')}
+async function loadMessages(){
+ if(!user)return;
+ const cols='id,created_at,sender_id,receiver_id,listing_title,content,is_read,sender:profiles!messages_sender_id_fkey(full_name),receiver:profiles!messages_receiver_id_fkey(full_name)';
+ let {data,error}=await sb.from('messages').select(cols.replace('content,','content,image_url,')).order('created_at',{ascending:true});
+ if(error&&String(error.message).includes('image_url'))({data,error}=await sb.from('messages').select(cols).order('created_at',{ascending:true}));
+ if(error){if(!msgErr){toast('Erreur messages : '+error.message);msgErr=true}return}
+ msgErr=false;messages=data||[];updateBadge();
+ if($('messages').classList.contains('active'))renderMessages()}
+function unreadCount(){return user?messages.filter(m=>m.receiver_id===user.id&&!m.is_read).length:0}
+function updateBadge(){const n=unreadCount();$('navMsg').innerHTML='<b>▤</b>Messages'+(n?' ('+n+')':'')}
+function convos(){
+ const map={};
+ messages.forEach(m=>{const mine=m.sender_id===user.id,other=mine?m.receiver_id:m.sender_id,name=mine?m.receiver?.full_name:m.sender?.full_name;
+  map[other]=map[other]||{id:other,name:'Membre Jobthink',list:[]};if(name)map[other].name=name;map[other].list.push(m)});
+ return Object.values(map).sort((a,b)=>new Date(b.list[b.list.length-1].created_at)-new Date(a.list[a.list.length-1].created_at))}
+function timeFmt(d){return new Date(d).toLocaleString('fr-FR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})}
+function renderMessages(){
+ const box=$('messagesBody');if(!box)return;
+ if(!user){box.innerHTML='<div class="empty">Connecte-toi pour voir tes messages.</div>';return}
+ const old=$('replyText')?$('replyText').value:'';
+ if(!activeChat){
+  const cs=convos();
+  box.innerHTML=cs.length?cs.map(c=>{const last=c.list[c.list.length-1],un=c.list.filter(m=>m.receiver_id===user.id&&!m.is_read).length;
+   return `<div class="panel" onclick="openChat('${c.id}')" style="cursor:pointer"><div class="msg" style="border:0;padding:0"><div class="avatar">${safe(c.name.charAt(0).toUpperCase())}</div><div style="flex:1;min-width:0"><div class="row"><strong>${safe(c.name)}</strong>${un?`<span class="tag">${un} nouveau${un>1?'x':''}</span>`:''}</div><p>${last.sender_id===user.id?'Toi : ':''}${safe(last.content.slice(0,70))}</p></div></div></div>`}).join(''):'<div class="empty">💬<br><b>Aucune conversation</b><br>Ouvre une annonce et appuie sur « Contacter » pour écrire.</div>';
+  return}
+ const c=convos().find(x=>x.id===activeChat);
+ const name=c?c.name:(items.find(j=>j.ownerId===activeChat)?.owner||'Membre Jobthink');
+ const list=c?c.list:[];
+ box.innerHTML=`<button class="small-link" onclick="clearChatPhoto(true);activeChat=null;renderMessages()">← Conversations</button><div class="panel" style="margin-top:10px"><div class="row" style="margin-bottom:8px"><b>${safe(name)}</b></div><div id="thread" style="display:flex;flex-direction:column;gap:8px;max-height:48vh;overflow:auto">${list.map(m=>{const mine=m.sender_id===user.id;return `<div style="align-self:${mine?'flex-end':'flex-start'};max-width:82%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.4;background:${mine?'var(--purple)':'#f0eff6'};color:${mine?'#fff':'var(--ink)'}">${m.listing_title?`<div style="font-size:10px;opacity:.75;margin-bottom:3px">📌 ${safe(m.listing_title)}</div>`:''}${m.image_url?`<img src="${safe(m.image_url)}" alt="Photo" loading="lazy" onclick="viewImg(this.src)" style="display:block;width:220px;max-width:100%;border-radius:10px;cursor:pointer;margin-bottom:${m.content&&m.content!=='📷 Photo'?'6px':'0'}">`:''}${m.image_url&&m.content==='📷 Photo'?'':safe(m.content)}<div style="font-size:9px;opacity:.7;margin-top:4px;text-align:right">${timeFmt(m.created_at)}</div>${mine?'':`<div style="text-align:right"><button class="small-link" style="font-size:10px;opacity:.85" onclick="openMsgReport('${m.id}')">⚑ Signaler</button></div>`}</div>`}).join('')||'<div class="muted">Aucun message pour le moment.</div>'}</div></div><div class="panel">${chatPhotoUrl?`<div style="position:relative;display:inline-block;margin-bottom:8px"><img src="${chatPhotoUrl}" alt="" style="width:84px;height:84px;object-fit:cover;border-radius:10px;display:block"><button type="button" onclick="clearChatPhoto()" aria-label="Retirer la photo" style="position:absolute;top:-6px;right:-6px;width:24px;height:24px;border-radius:50%;border:0;background:#d33;color:#fff;font-size:14px;line-height:24px;padding:0">×</button></div>`:''}<div class="field" style="margin-top:0"><textarea id="replyText" maxlength="1000" placeholder="Écris ta réponse..."></textarea></div><div style="display:flex;gap:8px"><label class="btn soft" style="flex:0 0 auto;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 18px" aria-label="Joindre une photo">📷<input type="file" accept="image/*" hidden onchange="pickChatPhoto(this)"></label><button class="btn block" id="replyBtn" onclick="sendReply()" style="flex:1;margin:0">Envoyer</button></div></div>`;
+ if($('replyText'))$('replyText').value=old;
+ const th=$('thread');if(th)th.scrollTop=th.scrollHeight}
+async function openChat(id){
+ if(activeChat!==id)clearChatPhoto(true);
+ activeChat=id;renderMessages();
+ const unread=messages.filter(m=>m.sender_id===id&&m.receiver_id===user.id&&!m.is_read);
+ if(unread.length){await sb.from('messages').update({is_read:true}).eq('sender_id',id).eq('receiver_id',user.id).eq('is_read',false);await loadMessages()}}
+function clearChatPhoto(skipRender){if(chatPhotoUrl)URL.revokeObjectURL(chatPhotoUrl);chatPhoto=null;chatPhotoUrl='';if(!skipRender)renderMessages()}
+function pickChatPhoto(input){
+ const f=input.files&&input.files[0];input.value='';if(!f)return;
+ if(!f.type.startsWith('image/')){toast('Choisis une image.');return}
+ if(chatPhotoUrl)URL.revokeObjectURL(chatPhotoUrl);
+ chatPhoto=f;chatPhotoUrl=URL.createObjectURL(f);renderMessages()}
+async function uploadChatPhoto(file){
+ const blob=await resizeMax(file,1000),path=user.id+'/chat-'+Date.now()+'-'+Math.random().toString(36).slice(2,7)+'.jpg';
+ const up=await sb.storage.from('listings').upload(path,blob,{contentType:'image/jpeg'});if(up.error)throw up.error;
+ return {url:sb.storage.from('listings').getPublicUrl(path).data.publicUrl,path}}
+function viewImg(src){
+ const d=document.createElement('div');d.setAttribute('style','position:fixed;inset:0;z-index:99;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:12px');
+ const i=document.createElement('img');i.src=src;i.setAttribute('style','max-width:100%;max-height:100%;border-radius:8px');
+ d.appendChild(i);d.onclick=()=>d.remove();document.body.appendChild(d)}
+async function sendReply(){
+ const text=$('replyText').value.trim();if((!text&&!chatPhoto)||!activeChat)return;
+ const btn=$('replyBtn');btn.disabled=true;
+ let up=null;
+ if(chatPhoto){toast('Envoi de la photo…');try{up=await uploadChatPhoto(chatPhoto)}catch(err){btn.disabled=false;toast('Photo impossible : '+(err.message||err));return}}
+ const row={sender_id:user.id,receiver_id:activeChat,content:text||'📷 Photo'};if(up)row.image_url=up.url;
+ const {error}=await sb.from('messages').insert(row);
+ if(error){btn.disabled=false;if(up)sb.storage.from('listings').remove([up.path]);toast('Envoi impossible : '+error.message);return}
+ $('replyText').value='';clearChatPhoto(true);await loadMessages()}
+async function createMission(){
+ if(!current||!user)return;
+ if(missions.some(m=>m.jobKey===current.key)){toast('Déjà dans tes missions.');return}
+ const {error}=await sb.from('missions').insert({user_id:user.id,listing_key:current.key,title:current.title,budget:current.budget,location:current.location,status:'À discuter'});
+ if(error){toast('Erreur : '+error.message);return}
+ await loadUserData();toast('Annonce ajoutée à tes missions.')}
+async function advanceMission(id){
+ const m=missions.find(x=>x.id===id);if(!m)return;
+ const st=['À discuter','En attente','En cours','Terminée'],next=st[(st.indexOf(m.status)+1)%st.length];
+ const {error}=await sb.from('missions').update({status:next}).eq('id',id);
+ if(error){toast('Erreur : '+error.message);return}
+ m.status=next;render();toast('Statut mis à jour.')}
+
+async function deleteCurrent(){
+ if(!current||!user||current.ownerId!==user.id)return;
+ if(!confirm('Supprimer définitivement cette annonce ?'))return;
+ const {error}=await sb.from(current.table).delete().eq('id',current.id);
+ if(error){toast('Suppression impossible : '+error.message);return}
+ if(current.images&&current.images.length){const ps=current.images.map(u=>{const i=u.indexOf('/listings/');return i>-1?decodeURIComponent(u.slice(i+10)):null}).filter(Boolean);if(ps.length)sb.storage.from('listings').remove(ps)}
+ sb.from('listing_contacts').delete().eq('listing_key',current.key).eq('owner_id',user.id).then(()=>{});delete contacts[current.key];
+ toast('Annonce supprimée.');await loadItems();go('home')}
+
+let pendingPhotos=[];
+function renderPhotoPrev(){$('photoPrev').innerHTML=pendingPhotos.map((f,i)=>`<div style="position:relative"><img src="${f._u}" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:10px;display:block"><button type="button" onclick="removePhoto(${i})" aria-label="Retirer" style="position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#d33;color:#fff;font-size:13px;line-height:22px;padding:0">×</button></div>`).join('');$('photoCount').textContent=pendingPhotos.length?pendingPhotos.length+' / 5 photos':'Aucune photo'}
+function addPhotos(input){
+ const list=[...input.files];input.value='';let over=false;
+ for(const f of list){if(!f.type.startsWith('image/'))continue;if(pendingPhotos.length>=5){over=true;break}f._u=URL.createObjectURL(f);pendingPhotos.push(f)}
+ if(over)toast('Maximum 5 photos.');renderPhotoPrev()}
+function removePhoto(i){const f=pendingPhotos[i];if(f)URL.revokeObjectURL(f._u);pendingPhotos.splice(i,1);renderPhotoPrev()}
+function clearPhotos(){pendingPhotos.forEach(f=>URL.revokeObjectURL(f._u));pendingPhotos=[];renderPhotoPrev()}
+function resizeMax(file,max){return new Promise((ok,ko)=>{const img=new Image(),u=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(u);const r=Math.min(1,max/Math.max(img.width,img.height)),w=Math.round(img.width*r),h=Math.round(img.height*r),c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(img,0,0,w,h);c.toBlob(b=>b?ok(b):ko(new Error('Image illisible')),'image/jpeg',.8)};img.onerror=()=>{URL.revokeObjectURL(u);ko(new Error('Image illisible'))};img.src=u})}
+async function uploadListingPhoto(file){
+ if(!file.type.startsWith('image/'))throw new Error('Choisis une image.');
+ const blob=await resizeMax(file,900),path=user.id+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,7)+'.jpg';
+ const up=await sb.storage.from('listings').upload(path,blob,{contentType:'image/jpeg'});if(up.error)throw up.error;
+ return sb.storage.from('listings').getPublicUrl(path).data.publicUrl}
+$('publishForm').addEventListener('submit',async e=>{
+ e.preventDefault();if(!user){showAuth();return}
+ const btn=$('publishBtn');
+ const phone=$('jobPhone').value.trim();if(!phoneOk(phone)){toast('Numéro invalide (6 à 20 caractères).');return}
+ btn.disabled=true;
+ const kind=$('kind').value,base={title:$('jobTitle').value.trim(),description:$('jobDesc').value.trim(),category:$('category').value,city:$('jobLocation').value.trim()},price=String($('jobBudget').value);
+ let res;const files=pendingPhotos.slice(0,5);
+ if(files.length){toast('Envoi des photos…');try{const urls=[];for(const f of files)urls.push(await uploadListingPhoto(f));base.images=urls;base.image_url=urls[0]}catch(err){btn.disabled=false;toast('Photo impossible : '+(err.message||err));return}}
+ if(kind==='job')res=await sb.from('jobs').insert({...base,salary:price,company:$('jobCompany').value.trim(),job_type:$('jobType').value,employer_id:user.id}).select('id').single();
+ else if(kind==='service')res=await sb.from('services').insert({...base,price,provider_id:user.id}).select('id').single();
+ else if(kind==='flash')res=await sb.from('projects').insert({...base,budget:price,client_id:user.id,is_flash:true,expires_at:new Date(Date.now()+Number($('flashHours').value)*3600000).toISOString()}).select('id').single();
+ else res=await sb.from('projects').insert({...base,budget:price,client_id:user.id}).select('id').single();
+ btn.disabled=false;
+ if(res.error){toast('Publication impossible : '+res.error.message);return}
+ let msg='Annonce publiée sur Jobthink !';
+ if(phone){const tbl={job:'jobs',service:'services'}[kind]||'projects',pe=await savePhone(tbl+':'+res.data.id,phone);if(pe)msg='Annonce publiée, mais numéro non enregistré : '+pe.message}
+ e.target.reset();clearPhotos();kindChange();query='';await loadItems();go('home');toast(msg)});
+
+// ---------- Modifier une annonce ----------
+const FIELDS={projects:{price:'budget'},services:{price:'price'},jobs:{price:'salary'}};
+function thumbHtml(src,fn){return `<div style="position:relative"><img src="${safe(src)}" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:10px;display:block"><button type="button" onclick="${fn}" aria-label="Retirer" style="position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:#d33;color:#fff;font-size:13px;line-height:22px;padding:0">×</button></div>`}
+function renderEditPhotos(){
+ $('editPhotoPrev').innerHTML=editKept.map((u,i)=>thumbHtml(u,`removeEditOld(${i})`)).join('')+editNew.map((f,i)=>thumbHtml(f._u,`removeEditNew(${i})`)).join('');
+ const t=editKept.length+editNew.length;$('editPhotoCount').textContent=t?t+' / 5 photos':'Aucune photo'}
+function addEditPhotos(input){
+ const list=[...input.files];input.value='';let over=false;
+ for(const f of list){if(!f.type.startsWith('image/'))continue;if(editKept.length+editNew.length>=5){over=true;break}f._u=URL.createObjectURL(f);editNew.push(f)}
+ if(over)toast('Maximum 5 photos.');renderEditPhotos()}
+function removeEditOld(i){editKept.splice(i,1);renderEditPhotos()}
+function removeEditNew(i){const f=editNew[i];if(f)URL.revokeObjectURL(f._u);editNew.splice(i,1);renderEditPhotos()}
+function pathsOf(urls){return urls.map(u=>{const i=u.indexOf('/listings/');return i>-1?decodeURIComponent(u.slice(i+10)):null}).filter(Boolean)}
+function openEdit(){
+ if(!current||!user||current.ownerId!==user.id)return;
+ const isJob=current.table==='jobs';
+ $('editJobExtra').classList.toggle('hide',!isJob);
+ if(isJob){$('editCompany').value=current.company||'';$('editJobType').value=current.jobType||'CDI'}
+ $('editCategory').value=current.category;$('editTitle').value=current.title;$('editDesc').value=current.description;
+ $('editBudget').value=current.budget||'';$('editCity').value=current.location||'';
+ $('editPhone').value=contacts[current.key]||'';
+ editKept=[...(current.images||[])];editNew.forEach(f=>URL.revokeObjectURL(f._u));editNew=[];renderEditPhotos();
+ $('editModal').classList.add('show')}
+async function saveEdit(){
+ if(!current||!user||current.ownerId!==user.id)return;
+ const title=$('editTitle').value.trim(),desc=$('editDesc').value.trim(),city=$('editCity').value.trim(),phone=$('editPhone').value.trim();
+ if(!title||!desc||!city){toast('Titre, description et lieu sont obligatoires.');return}
+ if(!phoneOk(phone)){toast('Numéro invalide (6 à 20 caractères).');return}
+ const upd={title,description:desc,category:$('editCategory').value,city};
+ upd[FIELDS[current.table].price]=String($('editBudget').value||'0');
+ if(current.table==='jobs'){upd.company=$('editCompany').value.trim();upd.job_type=$('editJobType').value}
+ const btn=$('editSave');btn.disabled=true;
+ const newUrls=[];
+ try{if(editNew.length){toast('Envoi des photos…');for(const f of editNew)newUrls.push(await uploadListingPhoto(f))}}
+ catch(err){btn.disabled=false;if(newUrls.length)sb.storage.from('listings').remove(pathsOf(newUrls));toast('Photo impossible : '+(err.message||err));return}
+ const finalImgs=[...editKept,...newUrls];
+ upd.images=finalImgs;upd.image_url=finalImgs[0]||null;
+ const {error}=await sb.from(current.table).update(upd).eq('id',current.id);
+ if(error){btn.disabled=false;if(newUrls.length)sb.storage.from('listings').remove(pathsOf(newUrls));toast('Modification impossible : '+error.message);return}
+ const removed=(current.images||[]).filter(u=>!editKept.includes(u));
+ if(removed.length){const ps=pathsOf(removed);if(ps.length)sb.storage.from('listings').remove(ps)}
+ const pe=await savePhone(current.key,phone);
+ btn.disabled=false;
+ const key=current.key;$('editModal').classList.remove('show');
+ editNew.forEach(f=>URL.revokeObjectURL(f._u));editNew=[];
+ await loadItems();openJob(key);toast(pe?'Annonce modifiée, mais numéro non enregistré : '+pe.message:'Annonce modifiée.')}
+
+// ---------- Signalement ----------
+let reportMode='listing',reportMsgId=null;
+const LISTING_REASONS=[...document.querySelectorAll('#reportReason option')].map(o=>o.textContent);
+const MSG_REASONS=['Harcèlement ou insultes','Arnaque ou demande d’argent','Photo ou contenu inapproprié','Spam ou publicité','Autre'];
+function setReasons(a){$('reportReason').innerHTML=a.map(r=>'<option>'+safe(r)+'</option>').join('')}
+function openMsgReport(id){
+ if(!user)return;const m=messages.find(x=>String(x.id)===String(id));if(!m||m.sender_id===user.id)return;
+ reportMode='message';reportMsgId=m.id;
+ $('reportTitle').textContent='Signaler ce message';
+ $('reportWho').textContent=(m.image_url?'📷 ':'')+String(m.content||'').slice(0,80);
+ setReasons(MSG_REASONS);$('reportText').value='';$('reportReason').selectedIndex=0;$('reportModal').classList.add('show')}
+async function sendMsgReport(){
+ if(!reportMsgId)return;const btn=$('reportSend');btn.disabled=true;
+ const {error}=await sb.rpc('report_message',{p_message_id:String(reportMsgId),p_reason:$('reportReason').value,p_details:$('reportText').value.trim()});
+ btn.disabled=false;
+ if(error){toast(error.code==='23505'?'Tu as déjà signalé ce message.':'Envoi impossible : '+error.message);return}
+ $('reportModal').classList.remove('show');toast('Merci, ton signalement a été envoyé.')}
+function openReport(){if(!current||!user||current.ownerId===user.id)return;reportMode='listing';reportMsgId=null;$('reportTitle').textContent='Signaler cette annonce';setReasons(LISTING_REASONS);$('reportWho').textContent=current.title;$('reportText').value='';$('reportReason').selectedIndex=0;$('reportModal').classList.add('show')}
+async function sendReport(){
+ if(!user)return;
+ if(reportMode==='message'){await sendMsgReport();return}
+ if(!current)return;const btn=$('reportSend');btn.disabled=true;
+ const {error}=await sb.from('reports').insert({reporter_id:user.id,reported_user_id:current.ownerId,listing_key:current.key,reason:$('reportReason').value,details:$('reportText').value.trim()});
+ btn.disabled=false;
+ if(error){toast(error.code==='23505'?'Tu as déjà signalé cette annonce.':'Envoi impossible : '+error.message);return}
+ $('reportModal').classList.remove('show');toast('Merci, ton signalement a été envoyé.')}
+
+// ---------- Admin : messages signalés ----------
+async function loadAdminMsgReports(){
+ const box=$('adminMsgReports');if(!box)return;
+ if(!isAdmin()){box.innerHTML='';return}
+ box.innerHTML='<div class="empty">Chargement…</div>';
+ const {data,error}=await sb.from('message_reports').select('*').eq('status','open').order('created_at',{ascending:false});
+ if(error){box.innerHTML='<div class="empty">Lecture impossible : '+safe(error.message)+'</div>';return}
+ const rows=data||[];
+ const ids=[...new Set(rows.flatMap(r=>[r.reporter_id,r.reported_user_id]).filter(Boolean))],names={};
+ if(ids.length){const pr=await sb.from('profiles').select('id,full_name').in('id',ids);(pr.data||[]).forEach(x=>names[x.id]=x.full_name)}
+ box.innerHTML=rows.length?rows.map(r=>`<div class="panel"><div class="row"><span class="tag">${safe(r.reason)}</span><span class="muted">${timeFmt(r.created_at)}</span></div>
+  <p class="muted" style="margin:10px 0 0">Auteur du message : <b>${safe(names[r.reported_user_id]||'Membre Jobthink')}</b><br>Signalé par : ${safe(names[r.reporter_id]||'Membre Jobthink')}</p>
+  ${r.content&&r.content!=='📷 Photo'?`<p style="margin:8px 0 0;font-size:13px">« ${safe(r.content)} »</p>`:''}
+  ${r.image_url?`<img src="${safe(r.image_url)}" alt="Photo signalée" loading="lazy" onclick="viewImg(this.src)" style="display:block;width:160px;max-width:100%;border-radius:10px;margin-top:8px;cursor:pointer">`:''}
+  ${r.details?`<p class="muted" style="margin:8px 0 0">Précisions : ${safe(r.details)}</p>`:''}
+  <button class="btn soft block" onclick="closeMsgReport('${r.id}')">✅ Marquer comme traité</button></div>`).join('')
+  :'<div class="empty">Aucun message signalé. 🎉</div>'}
+async function closeMsgReport(id){
+ if(!isAdmin())return;
+ const {error}=await sb.from('message_reports').update({status:'closed'}).eq('id',id);
+ if(error){toast('Erreur : '+error.message);return}
+ toast('Signalement traité.');loadAdminMsgReports()}
+
+// ---------- Admin : signalements ----------
+async function loadReports(){
+ const box=$('adminList');if(!box)return;
+ if(!isAdmin()){box.innerHTML='<div class="empty">Accès réservé à l’administrateur.</div>';return}
+ box.innerHTML='<div class="empty">Chargement…</div>';
+ const {data,error}=await sb.from('reports').select('*').order('created_at',{ascending:false});
+ if(error){box.innerHTML='<div class="empty">Lecture impossible : '+safe(error.message)+'</div>';return}
+ reports=data||[];
+ const ids=[...new Set(reports.flatMap(r=>[r.reporter_id,r.reported_user_id]).filter(Boolean))],names={};
+ if(ids.length){const pr=await sb.from('profiles').select('id,full_name').in('id',ids);(pr.data||[]).forEach(x=>names[x.id]=x.full_name)}
+ box.innerHTML=reports.length?reports.map(r=>{
+  const j=items.find(x=>x.key===r.listing_key);
+  return `<div class="panel"><div class="row"><span class="tag">${safe(r.reason)}</span><span class="muted">${timeFmt(r.created_at)}</span></div>
+  <p style="margin:10px 0 4px;font-size:13px"><b>${j?safe(j.title):'Annonce supprimée ou introuvable'}</b></p>
+  <p class="muted" style="margin:0">Annonceur : ${safe(names[r.reported_user_id]||'Membre Jobthink')}<br>Signalé par : ${safe(names[r.reporter_id]||'Membre Jobthink')}</p>
+  ${r.details?`<p class="muted" style="margin:8px 0 0">« ${safe(r.details)} »</p>`:''}
+  ${j?`<button class="btn soft block" onclick="openJob('${safe(j.key)}')">Voir l’annonce</button><button class="btn danger block" onclick="adminDelete('${safe(j.key)}')">Supprimer l’annonce</button>`:''}</div>`}).join('')
+  :'<div class="empty">Aucun signalement pour le moment. 🎉</div>'}
+async function adminDelete(key){
+ if(!isAdmin())return;const j=items.find(x=>x.key===key);if(!j)return;
+ if(!confirm('Supprimer définitivement « '+j.title+' » ?'))return;
+ const {error}=await sb.from(j.table).delete().eq('id',j.id);
+ if(error){toast('Suppression impossible : '+error.message);return}
+ const ps=pathsOf(j.images||[]);if(ps.length)sb.storage.from('listings').remove(ps);
+ toast('Annonce supprimée.');await loadItems();loadReports()}
+
+// ---------- Pages d'information ----------
+const LEGAL={
+terms:{t:'Conditions d’utilisation',h:`<p class="muted"><i>Version provisoire.</i></p>
+<p class="muted"><b>1. Rôle de Jobthink.</b> Jobthink met en relation des membres qui cherchent ou proposent un emploi, un service ou une mission. Jobthink n’est pas l’employeur, ni partie aux accords conclus entre membres, et ne garantit ni la qualité d’un travail, ni un paiement.</p>
+<p class="muted"><b>2. Compte.</b> Tu dois avoir au moins 18 ans, donner des informations exactes et garder ton mot de passe secret. Tu es responsable de l’activité de ton compte.</p>
+<p class="muted"><b>3. Contenus interdits.</b> Sont interdits : les arnaques et fausses annonces, toute demande d’argent pour obtenir un emploi, les contenus illégaux, discriminatoires ou choquants, le harcèlement, le spam et les faux avis.</p>
+<p class="muted"><b>4. Annonces, messages et avis.</b> Chacun est responsable de ce qu’il publie. Jobthink peut retirer un contenu signalé et suspendre un compte qui ne respecte pas ces règles.</p>
+<p class="muted"><b>5. Paiements.</b> Jobthink ne gère pas les paiements entre membres. Sois prudent avant tout paiement ou acompte.</p>
+<p class="muted"><b>6. Responsabilité.</b> Jobthink est fourni tel quel et ne peut être tenu responsable des dommages liés aux échanges entre membres.</p>
+<p class="muted"><b>7. Évolution.</b> Ces conditions peuvent changer. Continuer à utiliser Jobthink vaut acceptation des nouvelles versions.</p>
+<p class="muted"><b>8. Services payants.</b> La mise à la une et Premium se paient par Mobile Money et sont activés après vérification du paiement. Ils sont valables pour la durée indiquée et ne sont pas remboursables une fois activés. Une annonce retirée pour non-respect des règles ne donne pas droit à un remboursement.</p>
+<p class="muted"><b>9. Jobs flash et défis.</b> Un job flash disparaît automatiquement à la fin de sa durée. Les prix des défis sont proposés par leurs créateurs : Jobthink ne gère ni ne garantit aucun prix. Les participations et les défis contraires aux règles peuvent être supprimés.</p>
+<p class="muted"><b>10. Badges.</b> « Identité vérifiée » indique qu’un appel vidéo a confirmé que le membre est une vraie personne : il ne certifie ni ses compétences ni la qualité de son travail. Le tarif de vérification n’est pas remboursé si la demande est refusée pour fausse identité. « Pro confirmé » est attribué automatiquement après 5 avis de 4 étoiles ou plus de membres différents.</p>`},
+privacy:{t:'Politique de confidentialité',h:`<p class="muted"><i>Version provisoire.</i></p>
+<p class="muted"><b>Données collectées.</b> Adresse e-mail, nom ou pseudo, présentation, photos, annonces, numéro de téléphone facultatif d’une annonce, messages (y compris les photos envoyées), favoris, missions, avis, métier et ville de ta carte, participations et votes aux défis et, si tu les actives, les données nécessaires aux notifications de ton appareil, ainsi que le numéro et la référence Mobile Money de tes demandes de mise à la une ou Premium.</p>
+<p class="muted"><b>Utilisation.</b> Ces données servent uniquement à faire fonctionner Jobthink. Nous ne les vendons pas.</p>
+<p class="muted"><b>Ce que les autres voient.</b> Ton nom, ta photo, ta présentation, tes annonces et les avis que tu reçois sont visibles par les membres connectés. Ta carte de profil (nom, photo, métier, ville, note) est visible par les membres connectés et peut être partagée par un lien. Tes votes aux défis ne sont visibles par aucun autre membre. Pour la vérification d’identité, ton numéro WhatsApp et celui de ton paiement ne sont vus que par l’administrateur et servent uniquement à la vérification. Tes messages ne sont visibles que par toi et la personne concernée. Le numéro de téléphone d’une annonce, si tu en ajoutes un, est visible par les membres connectés. Ton e-mail n’est pas affiché aux autres membres.</p>
+<p class="muted"><b>Hébergement.</b> Les données sont stockées chez Supabase, notre hébergeur de base de données.</p>
+<p class="muted"><b>Tes droits.</b> Tu peux modifier ton profil et supprimer tes annonces à tout moment. Tu peux demander la suppression de ton compte et de tes données auprès de l’équipe Jobthink.</p>`},
+help:{t:'Centre d’aide et sécurité',h:`<p class="muted"><b>Conseils pour éviter les arnaques</b></p>
+<p class="muted">• Ne paie jamais pour obtenir un emploi ou pour passer un entretien.</p>
+<p class="muted">• Ne partage jamais ton mot de passe ni un code reçu par SMS ou e-mail.</p>
+<p class="muted">• Méfie-toi d’une offre trop belle ou d’une personne pressée.</p>
+<p class="muted">• Pour un premier rendez-vous, choisis un lieu public et préviens un proche.</p>
+<p class="muted">• Consulte les avis du membre avant d’accepter une mission.</p>
+<p class="muted">• Utilise le bouton « 🚩 Signaler cette annonce » dès que quelque chose te semble suspect.</p>`}};
+const CONTACT=`<p class="muted"><b>Contact.</b> E-mail : <a href="mailto:lasdine14@gmail.com" style="color:var(--purple)">lasdine14@gmail.com</a><br>Téléphone : <a href="tel:+242067279904" style="color:var(--purple)">+242 06 727 99 04</a></p>`;
+Object.values(LEGAL).forEach(d=>{d.h+=CONTACT});
+function showLegal(k){const d=LEGAL[k];if(!d)return;$('legalTitle').textContent=d.t;$('legalBody').innerHTML=d.h;$('legalModal').classList.add('show')}
+
+// ---------- Profil ----------
+async function loadProfile(){
+ const {data,error}=await sb.from('profiles').select('full_name,bio,avatar_url,headline,city,created_at').eq('id',user.id).maybeSingle();
+ if(error)toast('Erreur profil : '+error.message);
+ let name=(data&&data.full_name)||user.user_metadata?.full_name||(user.email||'').split('@')[0]||'Membre';
+ if(!data||!data.full_name){const r=await sb.from('profiles').upsert({id:user.id,full_name:name});if(r.error)toast('Profil non enregistré : '+r.error.message)}
+ profile.name=name;profile.bio=(data&&data.bio)||localStorage.getItem(bioKey())||'';profile.avatar=(data&&data.avatar_url)||'';profile.headline=(data&&data.headline)||'';profile.city=(data&&data.city)||'';profile.since=(data&&data.created_at)||user.created_at||'';updateProfile()}
+async function saveProfile(){
+ const name=$('editName').value.trim()||profile.name,btn=$('saveProfileBtn');btn.disabled=true;
+ const bio=$('bio').value.trim();
+ const {error}=await sb.from('profiles').upsert({id:user.id,full_name:name,bio,headline:$('editHeadline').value.trim().slice(0,60),city:$('profCity').value.trim().slice(0,60)});btn.disabled=false;
+ if(error){toast('Enregistrement impossible : '+error.message);return}
+ profile.name=name;profile.bio=bio;profile.headline=$('editHeadline').value.trim().slice(0,60);profile.city=$('profCity').value.trim().slice(0,60);updateProfile();loadItems();toast('Profil enregistré.')}
+function setAvatar(el,url,letter){if(url){el.style.backgroundImage='url("'+url+'")';el.style.backgroundSize='cover';el.style.backgroundPosition='center';el.style.backgroundRepeat='no-repeat';el.textContent=''}else{el.style.backgroundImage='';el.textContent=letter}}
+function updateProfile(){const n=profile.name||'?',l=n.charAt(0).toUpperCase();$('profileName').innerHTML=safe(n)+(isPremium()?' 👑':'')+badgeIcons(user?user.id:'');$('profileEmail').textContent=user?user.email:'';$('editName').value=profile.name;$('bio').value=profile.bio;$('editHeadline').value=profile.headline||'';$('profCity').value=profile.city||'';setAvatar($('topAvatar'),profile.avatar,l);setAvatar($('profileAvatar'),profile.avatar,l)}
+const CV=280;let crop={img:null,zoom:1,ox:0,oy:0,drag:null};
+function cropGeo(){const im=crop.img,s=CV/Math.min(im.width,im.height)*crop.zoom,w=im.width*s,h=im.height*s,mx=(w-CV)/2,my=(h-CV)/2;crop.ox=Math.max(-mx,Math.min(mx,crop.ox));crop.oy=Math.max(-my,Math.min(my,crop.oy));return{w,h,x:(CV-w)/2+crop.ox,y:(CV-h)/2+crop.oy}}
+function cropDraw(){if(!crop.img)return;const g=cropGeo(),x=$('cropCanvas').getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,CV,CV);x.drawImage(crop.img,g.x,g.y,g.w,g.h)}
+function cropZoom(v){crop.zoom=Number(v);cropDraw()}
+function openCrop(input){
+ const f=input.files[0];input.value='';if(!f||!user)return;
+ if(!f.type.startsWith('image/')){toast('Choisis une image.');return}
+ const img=new Image(),u=URL.createObjectURL(f);
+ img.onload=()=>{URL.revokeObjectURL(u);crop={img,zoom:1,ox:0,oy:0,drag:null};$('cropZoom').value=1;$('cropModal').classList.add('show');cropDraw()};
+ img.onerror=()=>{URL.revokeObjectURL(u);toast('Image illisible.')};img.src=u}
+(function(){const c=$('cropCanvas');
+ c.addEventListener('pointerdown',e=>{if(!crop.img)return;crop.drag={x:e.clientX,y:e.clientY,ox:crop.ox,oy:crop.oy};c.setPointerCapture(e.pointerId)});
+ c.addEventListener('pointermove',e=>{if(!crop.drag)return;crop.ox=crop.drag.ox+(e.clientX-crop.drag.x);crop.oy=crop.drag.oy+(e.clientY-crop.drag.y);cropDraw()});
+ const end=()=>{crop.drag=null};c.addEventListener('pointerup',end);c.addEventListener('pointercancel',end)})();
+async function saveCrop(){
+ if(!crop.img||!user)return;const btn=$('cropSave');btn.disabled=true;
+ try{
+  const g=cropGeo(),k=400/CV,o=document.createElement('canvas');o.width=o.height=400;
+  const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,400,400);x.drawImage(crop.img,g.x*k,g.y*k,g.w*k,g.h*k);
+  const blob=await new Promise((ok,ko)=>o.toBlob(b=>b?ok(b):ko(new Error('Image illisible')),'image/jpeg',.85));
+  const path=user.id+'/avatar.jpg';
+  const up=await sb.storage.from('avatars').upload(path,blob,{upsert:true,contentType:'image/jpeg'});if(up.error)throw up.error;
+  const url=sb.storage.from('avatars').getPublicUrl(path).data.publicUrl+'?v='+Date.now();
+  const r=await sb.from('profiles').update({avatar_url:url}).eq('id',user.id);if(r.error)throw r.error;
+  profile.avatar=url;updateProfile();$('cropModal').classList.remove('show');toast('Photo enregistrée.')
+ }catch(e){toast('Photo impossible : '+(e.message||e))}
+ btn.disabled=false}
+
+// ---------- Connexion ----------
+function showAuth(){$('authModal').classList.add('show')}
+function hideAuth(){$('authModal').classList.remove('show')}
+function authMsg(t,ok){const m=$('authMsg');m.textContent=t||'';m.classList.toggle('ok',!!ok)}
+let lastFlagged='',fixEmail='',chatPhoto=null,chatPhotoUrl='';
+const KNOWN_DOMAINS=['gmail.com','yahoo.com','yahoo.fr','hotmail.com','hotmail.fr','outlook.com','outlook.fr','live.com','live.fr','icloud.com','orange.fr','free.fr','protonmail.com','proton.me','msn.com','aol.com','wanadoo.fr','sfr.fr'];
+const FAKE_DOMAINS=['mailinator.com','yopmail.com','yopmail.fr','guerrillamail.com','10minutemail.com','tempmail.com','temp-mail.org','trashmail.com','sharklasers.com','getnada.com','dispostable.com','maildrop.cc','example.com','example.org','test.com'];
+function lev(a,b){const d=[];for(let i=0;i<=a.length;i++){d[i]=[i]}for(let j=0;j<=b.length;j++)d[0][j]=j;
+ for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return d[a.length][b.length]}
+function checkEmail(email){
+ const e=email.toLowerCase();
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@.]{2,}$/.test(e)||e.includes('..'))return {msg:'Cette adresse e-mail n’est pas valide.'};
+ const [local,dom]=e.split('@');
+ if(FAKE_DOMAINS.includes(dom))return {msg:'Utilise ta vraie adresse e-mail : les adresses jetables ou de test ne sont pas acceptées.'};
+ if(!KNOWN_DOMAINS.includes(dom)){
+  let best=null,bd=9;
+  for(const k of KNOWN_DOMAINS){const dd=lev(dom,k);if(dd<bd){bd=dd;best=k}}
+  if(best&&bd<=2)return {soft:true,fix:local+'@'+best,msg:'Cette adresse semble contenir une faute : voulais-tu écrire '+local+'@'+best+' ? Si elle est correcte, appuie de nouveau sur « Créer mon compte ».'}}
+ return {}}
+function showFix(f){fixEmail=f;const b=$('authFix');b.textContent='Utiliser '+f;b.classList.remove('hide')}
+function applyFix(){if(!fixEmail)return;$('authEmail').value=fixEmail;$('authEmail2').value=fixEmail;$('authFix').classList.add('hide');authMsg('Adresse corrigée. Appuie sur « Créer mon compte ».',true)}
+async function doAuth(mode){
+ if(SUPABASE_KEY.startsWith('COLLE_ICI')){authMsg('Colle ta clé publique Supabase dans le fichier (ligne SUPABASE_KEY).');return}
+ const email=$('authEmail').value.trim(),pw=$('authPass').value,name=$('authName').value.trim();
+ if(!email||pw.length<6){authMsg('Entre un e-mail et un mot de passe d’au moins 6 caractères.');return}
+ $('authFix').classList.add('hide');
+ if(mode==='signup'){
+  if(email.toLowerCase()!==$('authEmail2').value.trim().toLowerCase()){authMsg('Les deux adresses e-mail ne sont pas identiques. Vérifie-les.');return}
+  const c=checkEmail(email);
+  if(c.msg&&!(c.soft&&lastFlagged===email.toLowerCase())){if(c.soft){lastFlagged=email.toLowerCase();showFix(c.fix)}authMsg(c.msg);return}}
+ $('loginBtn').disabled=$('signupBtn').disabled=true;authMsg('');
+ let r;
+ if(mode==='signup')r=await sb.auth.signUp({email,password:pw,options:{data:{full_name:name}}});
+ else r=await sb.auth.signInWithPassword({email,password:pw});
+ $('loginBtn').disabled=$('signupBtn').disabled=false;
+ if(r.error){authMsg(r.error.message);return}
+ if(mode==='signup'&&!r.data.session)authMsg('Compte créé. Ouvre l’e-mail reçu pour confirmer ton adresse (pense à vérifier les spams), puis connecte-toi.',true)}
+async function forgotPassword(){
+ const email=$('authEmail').value.trim();
+ if(!email){authMsg('Entre ton adresse e-mail ci-dessus, puis appuie de nouveau sur « Mot de passe oublié ».');return}
+ authMsg('');
+ const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+ if(error){authMsg(error.message);return}
+ authMsg('Si ce compte existe, un e-mail vient d’être envoyé. Ouvre le lien reçu (pense à vérifier les spams).',true)}
+function showReset(){$('resetMsg').textContent='';$('newPass').value=$('newPass2').value='';$('resetModal').classList.add('show')}
+async function saveNewPassword(){
+ const a=$('newPass').value,b=$('newPass2').value,m=$('resetMsg');
+ if(a.length<6){m.textContent='6 caractères minimum.';return}
+ if(a!==b){m.textContent='Les deux mots de passe ne sont pas identiques.';return}
+ const btn=$('resetSave');btn.disabled=true;
+ const {error}=await sb.auth.updateUser({password:a});btn.disabled=false;
+ if(error){m.textContent=error.message;return}
+ $('resetModal').classList.remove('show');toast('Mot de passe modifié.')}
+async function logout(){await removeDeviceSub();await sb.auth.signOut();toast('Déconnecté.')}
+async function handleSession(session){
+ if(!session){user=null;items=[];messages=[];activeChat=null;favorites=[];missions=[];reviews=[];contacts={};reports=[];challenges=[];entryCounts={};curCh=null;boostedKeys=new Set();premiumUsers=new Set();verifiedSet=new Set();adminSet=new Set();myVerif=[];myPromos=[];stopRealtime();$('adminBox').classList.add('hide');profile={name:'',bio:'',avatar:'',headline:'',city:'',since:''};updateProfile();updateBadge();render();showAuth();return}
+ user=session.user;hideAuth();authMsg('');await loadProfile();await loadItems();await loadUserData();await loadReviews();await loadContacts();await loadPromos();await loadVerif();await loadMessages();await loadChallenges();startRealtime();$('adminBox').classList.toggle('hide',!isAdmin());syncPush();go('home');checkDeepLink()}
+sb.auth.onAuthStateChange((event,session)=>{setTimeout(async()=>{await handleSession(session);if(event==='PASSWORD_RECOVERY')showReset()},0)});
+setInterval(()=>{if(user){loadMessages();loadPromos()}},60000);
+
+// ---------- Monétisation ----------
+async function loadPromos(){
+ if(!user)return;
+ const [a,m]=await Promise.all([
+  sb.rpc('get_active_promotions').then(r=>r.error?sb.from('active_promotions').select('kind,listing_key,user_id,ends_at'):r),
+  sb.from('promotions').select('id,kind,listing_key,status,ends_at,created_at').eq('user_id',user.id).order('created_at',{ascending:false})]);
+ if(a.error){if(!promoErr){toast('Erreur promotions : '+a.error.message);promoErr=true}return}
+ promoErr=false;
+ boostedKeys=new Set((a.data||[]).filter(r=>r.kind==='boost').map(r=>r.listing_key));
+ premiumUsers=new Set((a.data||[]).filter(r=>r.kind==='premium').map(r=>r.user_id));
+ myPromos=m.data||[];
+ render();updatePremiumUi();
+ if(current&&$('detail').classList.contains('active'))updateBoostBtn()}
+function updateBoostBtn(){
+ const b=$('dBoost');if(!b)return;
+ const mine=user&&current&&current.ownerId===user.id;
+ if(!mine||boostedKeys.has(current.key)){b.classList.add('hide');return}
+ const pend=myPromos.some(p=>p.kind==='boost'&&p.listing_key===current.key&&p.status==='pending');
+ b.classList.remove('hide');b.disabled=pend;
+ b.textContent=pend?'⏳ Demande en cours de validation':'⭐ Mettre à la une · '+PRICES.boost+' FCFA / '+DAYS.boost+' jours'}
+function updatePremiumUi(){
+ const pn=$('profileName');if(pn)pn.innerHTML=safe(profile.name||'?')+(isPremium()?' 👑':'')+badgeIcons(user?user.id:'');
+ const t=$('premiumText'),b=$('premiumBtn');if(!t||!b||!user)return;
+ const act=myPromos.find(p=>p.kind==='premium'&&p.status==='active'&&p.ends_at&&new Date(p.ends_at)>new Date());
+ const pend=myPromos.some(p=>p.kind==='premium'&&p.status==='pending');
+ b.disabled=pend;
+ if(pend){t.textContent='Ta demande Premium est en cours de validation.';b.textContent='⏳ Demande en cours'}
+ else if(act){t.textContent='Premium actif jusqu’au '+new Date(act.ends_at).toLocaleDateString('fr-FR')+'. Tes annonces passent avant celles des autres membres.';b.textContent='Prolonger de '+DAYS.premium+' jours · '+PRICES.premium.toLocaleString('fr-FR')+' FCFA'}
+ else{t.textContent='Badge 👑 sur ton profil et tes annonces, et tes annonces passent avant celles des autres membres. '+PRICES.premium.toLocaleString('fr-FR')+' FCFA pour '+DAYS.premium+' jours.';b.textContent='Devenir Premium'}}
+function openPromo(kind){
+ if(!user){showAuth();return}
+ if(kind==='boost'&&(!current||current.ownerId!==user.id))return;
+ promoKind=kind;
+ $('promoTitle').textContent=kind==='boost'?'Mettre à la une ⭐':'Jobthink Premium 👑';
+ $('promoSub').textContent=kind==='boost'?'« '+current.title+' » sera affichée en premier pendant '+DAYS.boost+' jours.':'Badge 👑 sur ton profil et tes annonces, et tes annonces passent avant celles des autres membres pendant '+DAYS.premium+' jours.';
+ $('promoAmount').textContent=PRICES[kind].toLocaleString('fr-FR')+' FCFA';
+ $('promoPhone').value='';$('promoRef').value='';
+ $('promoModal').classList.add('show')}
+async function copyPayNumber(){try{await navigator.clipboard.writeText(PAY_PHONE);toast('Numéro copié.')}catch(e){toast('Numéro : '+PAY_SHOW)}}
+async function sendPromo(){
+ const phone=$('promoPhone').value.trim();
+ if(phone.length<6||phone.length>20){toast('Entre le numéro avec lequel tu as payé.');return}
+ const btn=$('promoSend');btn.disabled=true;
+ const row={user_id:user.id,kind:promoKind,amount:PRICES[promoKind],pay_phone:phone,pay_ref:$('promoRef').value.trim()||null};
+ if(promoKind==='boost')row.listing_key=current.key;
+ const {error}=await sb.from('promotions').insert(row);btn.disabled=false;
+ if(error){toast(error.code==='23505'?'Tu as déjà une demande en attente pour cet élément.':'Envoi impossible : '+error.message);return}
+ $('promoModal').classList.remove('show');await loadPromos();
+ toast('Demande envoyée. Elle sera activée après vérification du paiement.')}
+async function loadAdminPromos(){
+ const box=$('adminPromos');if(!box)return;
+ if(!isAdmin()){box.innerHTML='';return}
+ box.innerHTML='<div class="empty">Chargement…</div>';
+ const {data,error}=await sb.from('promotions').select('*').eq('status','pending').order('created_at',{ascending:true});
+ if(error){box.innerHTML='<div class="empty">Lecture impossible : '+safe(error.message)+'</div>';return}
+ adminPromoRows=data||[];
+ const ids=[...new Set(adminPromoRows.map(r=>r.user_id))],names={};
+ if(ids.length){const pr=await sb.from('profiles').select('id,full_name').in('id',ids);(pr.data||[]).forEach(x=>names[x.id]=x.full_name)}
+ box.innerHTML=adminPromoRows.length?adminPromoRows.map(r=>{
+  const j=items.find(x=>x.key===r.listing_key);
+  return `<div class="panel"><div class="row"><span class="tag">${r.kind==='premium'?'👑 Premium':'⭐ À la une'}</span><b>${money(r.amount)}</b></div>
+  <p style="margin:10px 0 4px;font-size:13px"><b>${r.kind==='boost'?(j?safe(j.title):'Annonce introuvable'):'Abonnement Premium'}</b></p>
+  <p class="muted" style="margin:0">Membre : ${safe(names[r.user_id]||'Membre Jobthink')}<br>A payé depuis : <a href="tel:${safe(String(r.pay_phone).replace(/[^\d+]/g,''))}" style="color:var(--purple)">${safe(r.pay_phone)}</a><br>Référence : ${safe(r.pay_ref||'—')}<br>${timeFmt(r.created_at)}</p>
+  <button class="btn block" onclick="decidePromo('${r.id}',true)">✅ Valider (paiement reçu)</button><button class="btn danger block" onclick="decidePromo('${r.id}',false)">Refuser</button></div>`}).join('')
+  :'<div class="empty">Aucune demande de paiement en attente.</div>'}
+async function decidePromo(id,ok){
+ if(!isAdmin())return;const r=adminPromoRows.find(x=>x.id===id);if(!r)return;
+ if(!confirm(ok?'Confirmer que tu as bien reçu '+money(r.amount)+' sur ton Mobile Money ?':'Refuser cette demande ?'))return;
+ const upd={status:ok?'active':'rejected'};
+ if(ok){
+  let start=new Date();
+  let q=sb.from('promotions').select('ends_at').eq('kind',r.kind).eq('status','active').gt('ends_at',start.toISOString()).order('ends_at',{ascending:false}).limit(1);
+  q=r.kind==='boost'?q.eq('listing_key',r.listing_key):q.eq('user_id',r.user_id);
+  const cur=await q;if(cur.data&&cur.data[0])start=new Date(cur.data[0].ends_at);
+  upd.starts_at=start.toISOString();upd.ends_at=new Date(start.getTime()+DAYS[r.kind]*86400000).toISOString()}
+ const {error}=await sb.from('promotions').update(upd).eq('id',id).eq('status','pending');
+ if(error){toast('Erreur : '+error.message);return}
+ toast(ok?'Activé ✅':'Demande refusée.');await loadAdminPromos();await loadPromos()}
+
+// ---------- Temps réel ----------
+function stopRealtime(){if(rtChan){sb.removeChannel(rtChan);rtChan=null}}
+function startRealtime(){
+ stopRealtime();if(!user)return;
+ rtChan=sb.channel('msgs-'+user.id).on('postgres_changes',{event:'*',schema:'public',table:'messages'},p=>{
+  loadMessages();
+  const m=p.new;
+  if(p.eventType==='INSERT'&&m&&m.receiver_id===user.id){
+   if(activeChat===m.sender_id&&$('messages').classList.contains('active'))sb.from('messages').update({is_read:true}).eq('id',m.id).then(()=>loadMessages());
+   else toast('💬 Nouveau message')}
+ }).subscribe()}
+// ---------- Notifications push ----------
+function b64ToU8(str){const pad='='.repeat((4-str.length%4)%4),raw=atob((str+pad).replace(/-/g,'+').replace(/_/g,'/'));return Uint8Array.from(raw,c=>c.charCodeAt(0))}
+function pushSupported(){return 'serviceWorker' in navigator&&'PushManager' in window&&'Notification' in window}
+async function ensureSub(reg){
+ const want=b64ToU8(VAPID_PUBLIC);
+ let sub=await reg.pushManager.getSubscription();
+ if(sub&&sub.options&&sub.options.applicationServerKey){
+  const cur=new Uint8Array(sub.options.applicationServerKey);
+  if(cur.length!==want.length||cur.some((v,i)=>v!==want[i])){try{await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint)}catch(e){}await sub.unsubscribe();sub=null}}
+ if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:want});
+ return sub}
+async function savePushSub(sub){const j=sub.toJSON();const {error}=await sb.from('push_subscriptions').upsert({endpoint:j.endpoint,user_id:user.id,p256dh:j.keys.p256dh,auth:j.keys.auth});return error}
+async function getSub(){try{const reg=await navigator.serviceWorker.getRegistration();return reg?await reg.pushManager.getSubscription():null}catch(e){return null}}
+async function refreshPushUi(){
+ const t=$('pushText'),b=$('pushBtn');if(!t||!b)return;
+ if(!pushSupported()){t.textContent='Non disponible sur ce navigateur. Sur iPhone, ajoute d’abord Jobthink à l’écran d’accueil.';b.classList.add('hide');return}
+ if(Notification.permission==='denied'){t.textContent='Bloquées dans les réglages du navigateur. Autorise-les pour recevoir les alertes.';b.classList.add('hide');return}
+ b.classList.remove('hide');
+ const sub=await getSub();
+ if(sub&&Notification.permission==='granted'){t.textContent='Activées sur cet appareil : tu es prévenu à chaque nouveau message.';b.textContent='Désactiver';b.className='btn line block';b.onclick=disablePush}
+ else{t.textContent='Reçois une alerte quand quelqu’un t’écrit, même si Jobthink est fermée.';b.textContent='Activer les notifications';b.className='btn block';b.onclick=enablePush}}
+async function enablePush(){
+ if(!user){showAuth();return}
+ if(!pushSupported()){toast('Notifications non disponibles ici. Sur iPhone, ajoute d’abord Jobthink à l’écran d’accueil.');return}
+ const b=$('pushBtn');b.disabled=true;
+ try{
+  const perm=await Notification.requestPermission();
+  if(perm!=='granted'){toast('Notifications refusées. Tu peux les autoriser dans les réglages du navigateur.');b.disabled=false;refreshPushUi();return}
+  const reg=await navigator.serviceWorker.ready;
+  const sub=await ensureSub(reg);
+  const err=await savePushSub(sub);if(err)throw err;
+  toast('Notifications activées 🔔')
+ }catch(e){toast('Activation impossible : '+(e.message||e))}
+ b.disabled=false;refreshPushUi()}
+async function disablePush(){
+ const b=$('pushBtn');b.disabled=true;
+ try{const sub=await getSub();if(sub){await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint);await sub.unsubscribe()}toast('Notifications désactivées.')}
+ catch(e){toast('Erreur : '+(e.message||e))}
+ b.disabled=false;refreshPushUi()}
+async function syncPush(){
+ try{if(!pushSupported()||Notification.permission!=='granted'||!user)return;
+  const reg=await navigator.serviceWorker.ready;const sub=await ensureSub(reg);
+  await savePushSub(sub)}catch(e){}}
+async function removeDeviceSub(){try{const sub=await getSub();if(sub&&user)await sb.from('push_subscriptions').delete().eq('endpoint',sub.endpoint)}catch(e){}}
+
+function toast(msg){let t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),3200)}
+// ====== NOUVEAUTÉS V4 : jobs flash, carte de réputation, défis ======
+// ---------- Jobs flash ----------
+function alive(j){return !j.flash||(j.expires&&new Date(j.expires)>Date.now())}
+function leftTxt(j){const ms=new Date(j.expires)-Date.now();if(!(ms>0))return 'expirée';const h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000);return h?h+' h '+m+' min':Math.max(1,m)+' min'}
+function kindChange(){const k=$('kind').value;$('jobExtra').classList.toggle('hide',k!=='job');$('flashExtra').classList.toggle('hide',k!=='flash')}
+function prefill(k){go('publish');$('kind').value=k;kindChange()}
+function renderFlashHome(){
+ const box=$('homeFlash');if(!box)return;
+ const fl=items.filter(j=>j.flash&&alive(j)).sort((a,b)=>new Date(a.expires)-new Date(b.expires));
+ box.innerHTML=fl.length?fl.slice(0,4).map(card).join(''):'<div class="empty">⚡ Un coup de main pour aujourd’hui ?<br>Publie un job flash : il s’affiche en haut pendant quelques heures.<br><button class="btn soft" style="margin-top:10px" onclick="prefill(\'flash\')">Publier un job flash</button></div>'}
+setInterval(()=>{if(user&&items.some(j=>j.flash)){items=items.filter(alive);render()}},60000);
+
+// ---------- Carte de réputation ----------
+const APP_URL='https://lasdine14.github.io/jobthink/';
+let memberCur=null;
+function loadImg(url){return new Promise(ok=>{if(!url)return ok(null);const i=new Image();i.crossOrigin='anonymous';i.onload=()=>ok(i);i.onerror=()=>ok(null);i.src=url})}
+async function drawCard(cv,m){
+ const W=800,H=450,c=cv.getContext('2d'),F='Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif';
+ cv.width=W;cv.height=H;
+ const g=c.createLinearGradient(0,0,W,H);g.addColorStop(0,'#090d27');g.addColorStop(.55,'#3a1fb0');g.addColorStop(1,'#8c65ff');
+ c.fillStyle=g;c.fillRect(0,0,W,H);
+ c.fillStyle='rgba(255,255,255,.07)';c.beginPath();c.arc(720,60,170,0,7);c.fill();c.beginPath();c.arc(70,440,120,0,7);c.fill();
+ c.textAlign='left';c.textBaseline='alphabetic';c.fillStyle='#fff';c.font='900 36px '+F;c.fillText('Job',48,66);
+ const jw=c.measureText('Job').width;c.fillStyle='#c7b5ff';c.fillText('think',48+jw,66);
+ if(m.premium){c.textAlign='right';c.fillStyle='#ffc83d';c.font='800 24px '+F;c.fillText('👑 Premium',752,64);c.textAlign='left'}
+ c.textAlign='right';c.font='700 21px '+F;c.fillStyle='#fff';let by=m.premium?100:64;
+ if(m.admin){c.fillText('🔷 Administrateur Jobthink',752,by);by+=34}else if(m.verified){c.fillText('✅ Identité vérifiée',752,by);by+=34}
+ if(m.pro){c.fillText('🏅 Pro confirmé',752,by)}
+ c.textAlign='left';
+ const cx=135,cy=220,r=72,img=await loadImg(m.avatar);
+ c.save();c.beginPath();c.arc(cx,cy,r,0,7);c.clip();
+ if(img){const s=Math.max(2*r/img.width,2*r/img.height),w=img.width*s,h=img.height*s;c.drawImage(img,cx-w/2,cy-h/2,w,h)}
+ else{c.fillStyle='#30235f';c.fillRect(cx-r,cy-r,2*r,2*r);c.fillStyle='#fff';c.font='800 68px '+F;c.textAlign='center';c.textBaseline='middle';c.fillText((m.name||'?').charAt(0).toUpperCase(),cx,cy+4);c.textAlign='left';c.textBaseline='alphabetic'}
+ c.restore();c.lineWidth=6;c.strokeStyle='#fff';c.beginPath();c.arc(cx,cy,r,0,7);c.stroke();
+ const fit=(t,font,max)=>{c.font=font;t=String(t||'');if(c.measureText(t).width<=max)return t;while(t.length>1&&c.measureText(t+'…').width>max)t=t.slice(0,-1);return t+'…'},X=250,MX=500;
+ const nm=fit(m.name,'800 44px '+F,m.admin?MX-44:MX);c.fillStyle='#fff';c.fillText(nm,X,205);
+ if(m.admin){const nw=c.measureText(nm).width,bx=X+nw+26;c.fillStyle='#1d9bf0';c.beginPath();c.arc(bx,205-15,17,0,7);c.fill();c.fillStyle='#fff';c.font='900 22px '+F;c.textAlign='center';c.textBaseline='middle';c.fillText('✔',bx,205-14);c.textAlign='left';c.textBaseline='alphabetic'}
+ if(m.headline){const h=fit(m.headline,'500 26px '+F,MX);c.fillStyle='#d9ccff';c.fillText(h,X,247)}
+ if(m.city){const t=fit('📍 '+m.city,'500 22px '+F,MX);c.fillStyle='#ffffffcc';c.fillText(t,X,285)}
+ c.font='700 34px '+F;
+ if(m.n){const s=stars(m.avg);c.fillStyle='#ffc83d';c.fillText(s,48,356);const sw=c.measureText(s).width;c.fillStyle='#fff';c.font='700 26px '+F;c.fillText(m.avg.toFixed(1)+' · '+m.n+' avis',48+sw+16,354)}
+ else{c.fillStyle='#e5ddff';c.font='600 26px '+F;c.fillText('✨ Nouveau membre',48,354)}
+ const parts=['📌 '+m.ads+' annonce'+(m.ads>1?'s':'')],d=m.since?new Date(m.since):null;
+ if(d&&!isNaN(d))parts.push('Membre depuis '+d.toLocaleDateString('fr-FR',{month:'long',year:'numeric'}));
+ c.font='600 22px '+F;c.fillStyle='#e5ddff';c.fillText(parts.join('  ·  '),48,402);
+ c.textAlign='right';c.font='500 19px '+F;c.fillStyle='#ffffffaa';c.fillText('lasdine14.github.io/jobthink',752,432);c.textAlign='left'}
+async function openMember(uid){
+ if(!user){showAuth();return}
+ const {data,error}=await sb.from('profiles').select('id,full_name,bio,avatar_url,headline,city,created_at').eq('id',uid).maybeSingle();
+ if(error||!data){toast('Profil introuvable.');return}
+ const rt=ratingOf(uid),ads=items.filter(j=>j.ownerId===uid);
+ memberCur={id:uid,name:data.full_name||'Membre Jobthink',bio:data.bio||'',avatar:data.avatar_url||'',headline:data.headline||'',city:data.city||'',since:data.created_at||'',n:rt.n,avg:rt.avg,ads:ads.length,premium:premiumUsers.has(uid),verified:isVerified(uid),admin:isAdminUser(uid),pro:isPro(uid)};
+ $('memberBio').textContent=memberCur.bio;$('memberBio').classList.toggle('hide',!memberCur.bio);
+ $('memberAds').innerHTML=ads.length?'<div class="muted" style="margin:6px 2px"><b>Annonces</b></div><div class="cards" style="margin-bottom:8px">'+ads.slice(0,5).map(card).join('')+'</div>':'';
+ $('memberModal').classList.add('show');
+ await drawCard($('memberCanvas'),memberCur)}
+async function shareCard(){
+ if(!memberCur)return;const cv=$('memberCanvas'),link=APP_URL+'?u='+memberCur.id,own=user&&memberCur.id===user.id;
+ const txt=own?'Voici ma carte Jobthink : '+link:'Découvre le profil de '+memberCur.name+' sur Jobthink : '+link;
+ try{
+  const blob=await new Promise((ok,ko)=>cv.toBlob(b=>b?ok(b):ko(new Error('Image impossible')),'image/png'));
+  const file=new File([blob],'carte-jobthink.png',{type:'image/png'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Carte Jobthink',text:txt});return}
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='carte-jobthink.png';document.body.appendChild(a);a.click();a.remove();
+  try{await navigator.clipboard.writeText(link)}catch(e){}
+  toast('Carte enregistrée. Lien copié : colle-le dans WhatsApp.')
+ }catch(e){if(e&&e.name==='AbortError')return;toast('Partage impossible : '+(e.message||e))}}
+async function copyMemberLink(){
+ if(!memberCur)return;const link=APP_URL+'?u='+memberCur.id;
+ try{await navigator.clipboard.writeText(link);toast('Lien copié.')}catch(e){toast('Lien : '+link)}}
+const pendingMember=(()=>{const u=new URLSearchParams(location.search).get('u');return u&&/^[0-9a-f-]{36}$/i.test(u)?u:null})();
+let deepDone=false;
+function checkDeepLink(){if(pendingMember&&!deepDone){deepDone=true;try{history.replaceState(null,'',location.pathname)}catch(e){}openMember(pendingMember)}}
+
+// ---------- Défis de compétences ----------
+let challenges=[],entryCounts={},curCh=null,chEntries=[],myVote=null,chErr=false,entryFile=null;
+function chOpen(c){return new Date(c.ends_at)>Date.now()}
+function chLeft(c){const ms=new Date(c.ends_at)-Date.now();if(!(ms>0))return 'Terminé';const d=Math.floor(ms/86400000),h=Math.floor(ms%86400000/3600000),m=Math.floor(ms%3600000/60000);if(d>=1)return d+' j '+h+' h restants';return h?h+' h '+m+' min restantes':Math.max(1,m)+' min restantes'}
+async function loadChallenges(){
+ if(!user)return;
+ const [c,e]=await Promise.all([
+  sb.from('challenges').select('id,creator_id,title,description,category,prize,created_at,ends_at,profiles(full_name)').order('created_at',{ascending:false}),
+  sb.from('challenge_entries').select('challenge_id')]);
+ if(c.error){if(!chErr){toast('Erreur défis : '+c.error.message);chErr=true}return}
+ chErr=false;challenges=c.data||[];entryCounts={};
+ (e.data||[]).forEach(r=>{entryCounts[r.challenge_id]=(entryCounts[r.challenge_id]||0)+1});
+ if(curCh){const f=challenges.find(x=>x.id===curCh.id);if(f)curCh=f}
+ render();if($('challenges').classList.contains('active'))renderChallengeList()}
+function chCard(c){
+ const open=chOpen(c),n=entryCounts[c.id]||0;
+ return `<article class="job" onclick="openChallenge('${c.id}')" style="cursor:pointer"><div class="job-icon">${open?'🏆':'🏁'}</div><div class="job-main"><h3>${safe(c.title)}</h3><p>👤 ${safe(c.profiles?.full_name||'Membre Jobthink')}${c.category?' · '+safe(c.category):''}</p>${c.prize?`<p>🎁 ${safe(c.prize)}</p>`:''}<p>👥 ${n} participant${n>1?'s':''} · ${open?'⏳ '+chLeft(c):'Terminé'}</p></div></article>`}
+function sortedCh(){
+ const o=challenges.filter(chOpen).sort((a,b)=>new Date(a.ends_at)-new Date(b.ends_at)),f=challenges.filter(c=>!chOpen(c)).sort((a,b)=>new Date(b.ends_at)-new Date(a.ends_at));
+ return [...o,...f]}
+function renderChallengeList(){
+ const b=$('chList');if(!b)return;const l=sortedCh();
+ b.innerHTML=l.length?l.map(chCard).join(''):'<div class="empty">🏆<br><b>Aucun défi pour le moment</b><br>Lance le premier : propose un mini-challenge à la communauté.</div>'}
+function renderChallengesHome(){
+ const b=$('homeChallenges');if(!b)return;
+ const l=challenges.filter(chOpen).sort((a,b)=>new Date(a.ends_at)-new Date(b.ends_at)).slice(0,2);
+ b.innerHTML=l.length?l.map(chCard).join(''):'<div class="empty">🏆 Aucun défi en cours.<br>Lance le premier et fais découvrir les talents !<br><button class="btn soft" style="margin-top:10px" onclick="openNewChallenge()">Lancer un défi</button></div>'}
+async function openChallenge(id){
+ curCh=challenges.find(c=>c.id===id);if(!curCh)return;
+ chEntries=[];myVote=null;go('challenge');renderChallenge();await loadEntries()}
+function renderChallenge(){
+ const c=curCh;if(!c)return;
+ const open=chOpen(c),mine=user&&c.creator_id===user.id,done=user&&chEntries.some(e=>e.user_id===user.id);
+ $('chHead').innerHTML=`<div class="row"><span class="tag">${safe(c.category||'Défi')}</span><span class="status" style="color:${open?'var(--green)':'var(--muted)'}">${open?'⏳ '+chLeft(c):'Terminé'}</span></div><h1 class="title" style="margin-top:12px">${safe(c.title)}</h1>${c.prize?`<div class="notice">🎁 <b>Prix :</b> ${safe(c.prize)}</div>`:''}<p class="muted" style="white-space:pre-wrap">${safe(c.description)}</p><p class="muted">Lancé par <b>${safe(c.profiles?.full_name||'Membre Jobthink')}</b></p>`;
+ let a='';
+ if(user){
+  if(open&&mine)a='<div class="notice">C’est ton défi : tu ne peux pas y participer, mais tu peux suivre les votes.</div>';
+  else if(open&&done)a='<div class="notice">✅ Tu participes à ce défi. Invite tes amis à voter pour toi !</div>';
+  else if(open)a='<button class="btn block" onclick="openEntry()">＋ Participer au défi</button>';
+  if(mine||isAdmin())a+='<button class="btn danger block" onclick="deleteChallenge()">Supprimer ce défi</button>'}
+ $('chActions').innerHTML=a;renderEntries()}
+async function loadEntries(){
+ if(!curCh||!user)return;const id=curCh.id;
+ const [r,v]=await Promise.all([sb.rpc('get_challenge_entries',{p_challenge_id:id}),sb.from('challenge_votes').select('entry_id').eq('challenge_id',id)]);
+ if(!curCh||curCh.id!==id)return;
+ if(r.error){toast('Erreur participations : '+r.error.message);return}
+ chEntries=(r.data||[]).map(e=>({...e,votes:Number(e.votes)||0}));
+ myVote=(v.data&&v.data[0])?v.data[0].entry_id:null;
+ renderChallenge()}
+function renderEntries(){
+ const c=curCh,box=$('chEntries');if(!c||!box)return;const open=chOpen(c);
+ let win='';
+ if(!open&&chEntries.length&&chEntries[0].votes>0){
+  const w=chEntries[0],tie=chEntries.filter(e=>e.votes===w.votes).length>1;
+  win=`<div class="notice">🥇 <b>${tie?'Égalité en tête !':'Gagnant : '+safe(w.full_name||'Membre Jobthink')}</b> · ${w.votes} vote${w.votes>1?'s':''}</div>`}
+ box.innerHTML=win+(chEntries.length?chEntries.map((e,i)=>{
+  const mineE=user&&e.user_id===user.id,n=e.full_name||'Membre Jobthink';
+  let btn='';
+  if(user&&open&&!mineE)btn=myVote===e.id?`<button class="btn line" style="padding:8px 12px" onclick="vote('${e.id}')">✓ Mon vote</button>`:`<button class="btn soft" style="padding:8px 12px" onclick="vote('${e.id}')">👍 Voter</button>`;
+  const del=user&&(mineE||isAdmin())?`<button class="small-link" style="color:#d33" onclick="deleteEntry('${e.id}')">Supprimer</button>`:'';
+  const av=e.avatar_url?`style="background-image:url('${safe(e.avatar_url)}');background-size:cover;background-position:center"`:'';
+  return `<div class="panel"><div class="msg" style="border:0;padding:0"><div class="avatar" ${av}>${e.avatar_url?'':safe(n.charAt(0).toUpperCase())}</div><div style="flex:1;min-width:0"><div class="row"><strong style="cursor:pointer" onclick="openMember('${e.user_id}')">${!open&&i===0&&e.votes>0?'🥇 ':''}${safe(n)}${mineE?' (toi)':''}</strong><span class="tag">${e.votes} vote${e.votes>1?'s':''}</span></div>${e.content?`<p style="font-size:13px;color:var(--ink);white-space:pre-wrap">${safe(e.content)}</p>`:''}${e.image_url?`<img src="${safe(e.image_url)}" alt="" loading="lazy" onclick="viewImg(this.src)" style="display:block;width:100%;max-width:320px;border-radius:12px;cursor:pointer;margin:6px 0">`:''}<div class="row" style="margin-top:6px">${btn}${del}</div></div></div></div>`}).join(''):'<div class="empty">Aucune participation pour le moment.'+(open?'<br>Sois le premier à relever le défi !':'')+'</div>')}
+async function vote(eid){
+ if(!user||!curCh||!chOpen(curCh))return;
+ const same=myVote===eid;
+ if(myVote){const d=await sb.from('challenge_votes').delete().eq('challenge_id',curCh.id).eq('voter_id',user.id);if(d.error){toast('Erreur : '+d.error.message);return}myVote=null}
+ if(!same){const r=await sb.from('challenge_votes').insert({challenge_id:curCh.id,entry_id:eid,voter_id:user.id});if(r.error){toast('Vote impossible : '+r.error.message);await loadEntries();return}toast('Vote enregistré 👍')}
+ else toast('Vote retiré.');
+ await loadEntries()}
+function openEntry(){if(!curCh||!user)return;$('entryText').value='';entryFile=null;$('entryPhotoName').textContent='Aucune photo';$('entryModal').classList.add('show')}
+function pickEntryPhoto(i){const f=i.files&&i.files[0];i.value='';if(!f)return;if(!f.type.startsWith('image/')){toast('Choisis une image.');return}entryFile=f;$('entryPhotoName').textContent='📷 '+f.name}
+async function sendEntry(){
+ const text=$('entryText').value.trim();if(!text&&!entryFile){toast('Écris un texte ou ajoute une photo.');return}
+ const btn=$('entrySend');btn.disabled=true;let url=null;
+ if(entryFile){toast('Envoi de la photo…');try{url=await uploadListingPhoto(entryFile)}catch(err){btn.disabled=false;toast('Photo impossible : '+(err.message||err));return}}
+ const {error}=await sb.from('challenge_entries').insert({challenge_id:curCh.id,user_id:user.id,content:text||null,image_url:url});
+ btn.disabled=false;
+ if(error){if(url){const ps=pathsOf([url]);if(ps.length)sb.storage.from('listings').remove(ps)}toast(error.code==='23505'?'Tu participes déjà à ce défi.':'Participation impossible : '+error.message);return}
+ $('entryModal').classList.remove('show');entryFile=null;await loadChallenges();await loadEntries();toast('Participation envoyée 🎉')}
+async function deleteEntry(id){
+ const e=chEntries.find(x=>x.id===id);if(!e||!confirm('Supprimer cette participation ?'))return;
+ const {error}=await sb.from('challenge_entries').delete().eq('id',id);
+ if(error){toast('Suppression impossible : '+error.message);return}
+ if(e.image_url){const ps=pathsOf([e.image_url]);if(ps.length)sb.storage.from('listings').remove(ps)}
+ toast('Participation supprimée.');await loadChallenges();await loadEntries()}
+async function deleteChallenge(){
+ if(!curCh||!user||!(curCh.creator_id===user.id||isAdmin())||!confirm('Supprimer ce défi et toutes ses participations ?'))return;
+ const ps=pathsOf(chEntries.map(e=>e.image_url).filter(Boolean));
+ const {error}=await sb.from('challenges').delete().eq('id',curCh.id);
+ if(error){toast('Suppression impossible : '+error.message);return}
+ if(ps.length)sb.storage.from('listings').remove(ps);
+ curCh=null;toast('Défi supprimé.');await loadChallenges();go('challenges')}
+function openNewChallenge(){
+ if(!user){showAuth();return}
+ ['chTitle','chDesc','chPrize'].forEach(i=>{$(i).value=''});$('chCat').value='';$('chDays').value='7';$('chNewModal').classList.add('show')}
+async function sendChallenge(){
+ const title=$('chTitle').value.trim(),desc=$('chDesc').value.trim(),prize=$('chPrize').value.trim();
+ if(title.length<3||desc.length<3){toast('Ajoute un titre et une description.');return}
+ const btn=$('chSend');btn.disabled=true;
+ const {error}=await sb.from('challenges').insert({creator_id:user.id,title,description:desc,category:$('chCat').value||null,prize:prize||null,ends_at:new Date(Date.now()+Number($('chDays').value)*86400000).toISOString()});
+ btn.disabled=false;
+ if(error){toast('Création impossible : '+error.message);return}
+ $('chNewModal').classList.remove('show');await loadChallenges();go('challenges');toast('Défi lancé 🏆')}
+
+// ====== BADGES : Identité vérifiée ✅ et Pro confirmé 🏅 ======
+function isVerified(uid){return verifiedSet.has(uid)}
+function proCount(uid){return new Set(reviews.filter(r=>r.reviewed_id===uid&&r.rating>=4&&r.reviewer_id!==uid).map(r=>r.reviewer_id)).size}
+function isPro(uid){return proCount(uid)>=PRO_MIN}
+function isAdminUser(uid){return adminSet.has(uid)||(!!user&&uid===user.id&&isAdmin())}
+function badgeIcons(uid){return (isAdminUser(uid)?BC:(isVerified(uid)?' ✅':''))+(isPro(uid)?' 🏅':'')}
+function ownerHtml(j){const u=j.ownerId;return safe(j.owner)+(premiumUsers.has(u)?' 👑 Premium':'')+(isAdminUser(u)?BC+' Admin Jobthink':(isVerified(u)?' ✅ Identité vérifiée':''))+(isPro(u)?' 🏅 Pro confirmé':'')}
+async function loadVerif(){
+ if(!user)return;
+ let [v,m]=await Promise.all([
+  sb.from('verified_members').select('user_id,is_admin'),
+  sb.from('verification_requests').select('id,status,created_at').eq('user_id',user.id).order('created_at',{ascending:false})]);
+ if(v.error)v=await sb.from('verified_members').select('user_id');
+ if(v.error){if(!verifErr){toast('Erreur badges : '+v.error.message);verifErr=true}return}
+ verifErr=false;verifiedSet=new Set((v.data||[]).map(r=>r.user_id));adminSet=new Set((v.data||[]).filter(r=>r.is_admin).map(r=>r.user_id));myVerif=m.data||[];
+ render();updateVerifUi();
+ if(current&&$('detail').classList.contains('active'))$('dOwner').innerHTML=ownerHtml(current)}
+function updateVerifUi(){
+ const t=$('verifText'),b=$('verifBtn');if(!t||!b||!user)return;
+ const pend=myVerif.some(r=>r.status==='pending'),n=proCount(user.id);
+ const pro=isPro(user.id)?'🏅 <b>Pro confirmé</b> : tu as reçu '+PRO_MIN+' avis positifs ou plus.':'🏅 Pro confirmé (gratuit) : '+Math.min(n,PRO_MIN)+'/'+PRO_MIN+' membres différents t’ont mis 4★ ou plus.';
+ let a;
+ if(isVerified(user.id)){a='✅ <b>Ton identité est vérifiée.</b> Le badge s’affiche sur tes annonces, ton profil et ta carte.';b.classList.add('hide')}
+ else if(pend){a='⏳ Ta demande est en cours. Nous te contactons sur WhatsApp pour un court appel vidéo.';b.classList.add('hide')}
+ else{a='✅ Identité vérifiée : montre que tu es une vraie personne. Paiement de '+PRICES.verify.toLocaleString('fr-FR')+' FCFA puis court appel vidéo WhatsApp.';b.classList.remove('hide')}
+ t.innerHTML=a+'<br><br>'+pro}
+function openVerif(){
+ if(!user){showAuth();return}
+ $('verifAmount').textContent=PRICES.verify.toLocaleString('fr-FR')+' FCFA';
+ ['verifWa','verifPhone','verifRef'].forEach(i=>{$(i).value=''});$('verifModal').classList.add('show')}
+async function sendVerif(){
+ const wa=$('verifWa').value.trim(),ph=$('verifPhone').value.trim();
+ if(wa.length<6||wa.length>20){toast('Entre ton numéro WhatsApp.');return}
+ if(ph.length<6||ph.length>20){toast('Entre le numéro avec lequel tu as payé.');return}
+ const btn=$('verifSend');btn.disabled=true;
+ const {error}=await sb.from('verification_requests').insert({user_id:user.id,whatsapp:wa,pay_phone:ph,pay_ref:$('verifRef').value.trim()||null,amount:PRICES.verify});
+ btn.disabled=false;
+ if(error){toast(error.code==='23505'?'Tu as déjà une demande en attente.':'Envoi impossible : '+error.message);return}
+ $('verifModal').classList.remove('show');await loadVerif();
+ toast('Demande envoyée. Nous te contactons sur WhatsApp pour un appel vidéo.')}
+async function loadAdminVerifs(){
+ const box=$('adminVerifs');if(!box)return;
+ if(!isAdmin()){box.innerHTML='';return}
+ box.innerHTML='<div class="empty">Chargement…</div>';
+ const {data,error}=await sb.from('verification_requests').select('*').eq('status','pending').order('created_at',{ascending:true});
+ if(error){box.innerHTML='<div class="empty">Lecture impossible : '+safe(error.message)+'</div>';return}
+ adminVerifRows=data||[];
+ const ids=[...new Set(adminVerifRows.map(r=>r.user_id))],names={};
+ if(ids.length){const pr=await sb.from('profiles').select('id,full_name').in('id',ids);(pr.data||[]).forEach(x=>names[x.id]=x.full_name)}
+ box.innerHTML=adminVerifRows.length?adminVerifRows.map(r=>{
+  const d=String(r.whatsapp).replace(/\D/g,'');
+  return `<div class="panel"><div class="row"><span class="tag">✅ Identité</span><b>${money(r.amount)}</b></div>
+  <p style="margin:10px 0 4px;font-size:13px"><b>${safe(names[r.user_id]||'Membre Jobthink')}</b></p>
+  <p class="muted" style="margin:0">WhatsApp : <a href="https://wa.me/${d}" target="_blank" rel="noopener" style="color:var(--purple)">${safe(r.whatsapp)}</a><br>A payé depuis : ${safe(r.pay_phone)}<br>Référence : ${safe(r.pay_ref||'—')}<br>${timeFmt(r.created_at)}</p>
+  <p class="muted">À faire avant de valider : paiement reçu + appel vidéo WhatsApp avec la personne.</p>
+  <button class="btn block" onclick="decideVerif('${r.id}',true)">✅ Valider (paiement reçu + appel fait)</button><button class="btn danger block" onclick="decideVerif('${r.id}',false)">Refuser</button></div>`}).join('')
+  :'<div class="empty">Aucune demande de vérification en attente.</div>'}
+async function decideVerif(id,ok){
+ if(!isAdmin())return;const r=adminVerifRows.find(x=>x.id===id);if(!r)return;
+ if(!confirm(ok?'Confirmer : paiement de '+money(r.amount)+' reçu ET appel vidéo effectué ?':'Refuser cette demande ?'))return;
+ if(ok){const ins=await sb.from('verified_members').insert({user_id:r.user_id});if(ins.error&&ins.error.code!=='23505'){toast('Erreur : '+ins.error.message);return}}
+ const {error}=await sb.from('verification_requests').update({status:ok?'approved':'rejected'}).eq('id',id).eq('status','pending');
+ if(error){toast('Erreur : '+error.message);return}
+ toast(ok?'Badge accordé ✅':'Demande refusée.');await loadAdminVerifs();await loadVerif()}
+
+// ---------- Installation (PWA) ----------
+async function shareApp(){const d={title:'Jobthink',text:'Découvre Jobthink : emplois, services et freelance au Congo et en Afrique.',url:'https://lasdine14.github.io/jobthink/'};if(navigator.share){try{await navigator.share(d)}catch(e){}return}try{await navigator.clipboard.writeText(d.url);toast('Lien copié ! Colle-le dans WhatsApp.')}catch(e){window.open('https://wa.me/?text='+encodeURIComponent(d.text+' '+d.url),'_blank')}}
+let installEvt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;$('installBox').classList.remove('hide')});const inApp=matchMedia('(display-mode: standalone)').matches||navigator.standalone||(document.referrer||'').startsWith('android-app://');if(!inApp)$('dlBox').classList.remove('hide');
+window.addEventListener('appinstalled',()=>{installEvt=null;$('installBox').classList.add('hide');$('dlBox').classList.add('hide');toast('Jobthink est installée !')});
+async function installApp(){if(!installEvt){toast('Utilise le menu ⋮ de Chrome, puis « Installer l’application ».');return}installEvt.prompt();await installEvt.userChoice;installEvt=null;$('installBox').classList.add('hide');$('dlBox').classList.add('hide')}
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+render();
+</script></body></html>
